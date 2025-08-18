@@ -5,118 +5,90 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane fx:id="mainPane" prefHeight="720.0" prefWidth="1280.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saferoom.controller.MainController">
+<BorderPane fx:id="mainPane" prefHeight="800.0" prefWidth="1280.0" styleClass="main-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saferoom.controller.MainController">
+
     <left>
-        <VBox prefWidth="288.0" styleClass="sidebar">
+        <VBox styleClass="sidebar, sidebar-minimal">
             <children>
-                <!-- Logo ve Başlık -->
-                <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="12.0" styleClass="sidebar-header">
+                <HBox alignment="CENTER" prefHeight="60.0" styleClass="sidebar-header-minimal">
                     <children>
-                        <Pane prefHeight="32.0" prefWidth="32.0">
-                            <children>
-                                <SVGPath content="M12 2L2 7V17L12 22L22 17V7L12 2Z M16.5 8C16.5 10 15 11 12 12C9 13 7.5 14 7.5 16" styleClass="sidebar-logo-icon" />
-                            </children>
-                        </Pane>
-                        <Label styleClass="sidebar-title" text="SafeRoom" />
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/logo.jpg" />
+                            </image>
+                        </ImageView>
                     </children>
-                    <padding>
-                        <Insets left="16.0" />
-                    </padding>
                 </HBox>
-                <!-- Menü Butonları -->
-                <VBox fx:id="navBox" styleClass="sidebar-nav" VBox.vgrow="ALWAYS">
+
+                <VBox fx:id="navBox" alignment="TOP_CENTER" spacing="15" VBox.vgrow="ALWAYS">
                     <children>
-                        <JFXButton fx:id="dashboardButton" alignment="CENTER_LEFT" graphicTextGap="12.0" styleClass="nav-button" text="Dashboard" prefWidth="256.0">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-dice-d6" styleClass="nav-icon" />
-                            </graphic>
+                        <JFXButton fx:id="dashboardButton" styleClass="nav-button" text="">
+                            <graphic><FontIcon iconLiteral="fas-dice-d6" styleClass="nav-icon" /></graphic>
                         </JFXButton>
-                        <!-- YENİ: Rooms Butonu Eklendi -->
-                        <JFXButton fx:id="roomsButton" alignment="CENTER_LEFT" graphicTextGap="12.0" styleClass="nav-button" text="Rooms" prefWidth="256.0">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-network-wired" styleClass="nav-icon" />
-                            </graphic>
+                        <JFXButton fx:id="roomsButton" styleClass="nav-button" text="">
+                            <graphic><FontIcon iconLiteral="fas-network-wired" styleClass="nav-icon" /></graphic>
                         </JFXButton>
-                        <JFXButton fx:id="messagesButton" alignment="CENTER_LEFT" graphicTextGap="12.0" styleClass="nav-button" text="Messages" prefWidth="256.0">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-comment" styleClass="nav-icon" />
-                            </graphic>
+                        <JFXButton fx:id="messagesButton" styleClass="nav-button" text="">
+                            <graphic><FontIcon iconLiteral="fas-comment" styleClass="nav-icon" /></graphic>
                         </JFXButton>
-                        <JFXButton fx:id="friendsButton" alignment="CENTER_LEFT" graphicTextGap="12.0" styleClass="nav-button" text="Friends" prefWidth="256.0">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-user-friends" styleClass="nav-icon" />
-                            </graphic>
+                        <JFXButton fx:id="friendsButton" styleClass="nav-button" text="">
+                            <graphic><FontIcon iconLiteral="fas-user-friends" styleClass="nav-icon" /></graphic>
                         </JFXButton>
-                        <JFXButton fx:id="fileVaultButton" alignment="CENTER_LEFT" graphicTextGap="12.0" styleClass="nav-button" text="File Vault" prefWidth="256.0">
-                            <graphic>
-                                <FontIcon iconLiteral="far-file-alt" styleClass="nav-icon" />
-                            </graphic>
+                        <JFXButton fx:id="fileVaultButton" styleClass="nav-button" text="">
+                            <graphic><FontIcon iconLiteral="fas-folder" styleClass="nav-icon" /></graphic>
                         </JFXButton>
-                        <JFXButton fx:id="settingsButton" alignment="CENTER_LEFT" graphicTextGap="12.0" styleClass="nav-button" text="Settings" prefWidth="256.0">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-cog" styleClass="nav-icon" />
-                            </graphic>
-                        </JFXButton>
-                    </children>
-                </VBox>
-                <VBox styleClass="sidebar-footer">
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="12.0">
-                            <children>
-                                <Label styleClass="user-avatar" text="U" />
-                                <VBox>
-                                    <children>
-                                        <Label styleClass="user-name" text="Username" />
-                                        <Label styleClass="user-status" text="Online" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
                     </children>
                 </VBox>
             </children>
         </VBox>
     </left>
+
     <center>
-        <BorderPane styleClass="content-pane" >
+        <BorderPane styleClass="content-pane">
             <top>
-                <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="16.0" styleClass="header-bar" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="viewTitleLabel" styleClass="view-title" text="Dashboard" />
-                        <Pane HBox.hgrow="ALWAYS" />
-                        <TextField promptText="Search..." styleClass="search-field" />
-                        <JFXButton styleClass="icon-button">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-bell" styleClass="header-icon" />
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="newRoomButton" styleClass="action-button" text="New Room">
-                            <graphic>
-                                <FontIcon iconLiteral="fas-plus" styleClass="action-button-icon" />
-                            </graphic>
-                        </JFXButton>
-                    </children>
+                <BorderPane prefHeight="60.0" styleClass="header-bar">
+                    <center>
+                        <TextField promptText="Search SafeRoom..." styleClass="search-field" BorderPane.alignment="CENTER" />
+                    </center>
+                    <right>
+                        <HBox alignment="CENTER" spacing="16.0" styleClass="header-right-box">
+                            <children>
+                                <JFXButton fx:id="notificationsButton" styleClass="icon-button" text="">
+                                    <graphic>
+                                        <FontIcon iconLiteral="fas-bell" styleClass="header-icon" />
+                                    </graphic>
+                                </JFXButton>
+
+                                <StackPane fx:id="profileBox" styleClass="header-profile-box">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                            <children>
+                                                <Label fx:id="userAvatar" styleClass="user-avatar" text="U" />
+                                                <Label fx:id="usernameLabel" text="Username" styleClass="user-name" />
+                                            </children>
+                                        </HBox>
+                                        <Region fx:id="statusDot" styleClass="status-dot, status-online" StackPane.alignment="BOTTOM_RIGHT" />
+                                    </children>
+                                </StackPane>
+                            </children>
+                        </HBox>
+                    </right>
                     <padding>
-                        <Insets left="32.0" right="16.0" />
+                        <Insets left="32.0" right="32.0" />
                     </padding>
-                </HBox>
+                </BorderPane>
             </top>
             <center>
-                <ScrollPane fx:id="contentArea"
-                            fitToWidth="true"
-                            fitToHeight="true"
-                            hbarPolicy="NEVER"
-                            vbarPolicy="AS_NEEDED"
-                            styleClass="content-scroll-pane"
-                            BorderPane.alignment="CENTER" />
-
+                <StackPane fx:id="contentArea" styleClass="content-scroll-pane" BorderPane.alignment="CENTER" />
             </center>
         </BorderPane>
     </center>

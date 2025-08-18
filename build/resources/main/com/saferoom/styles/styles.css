@@ -2,7 +2,7 @@
    1. GENEL STİLLER VE KAYDIRMA ÇUBUĞU
    ================================================================= */
 .main-pane {
-    -fx-background-color: #1e293b; /* slate-800 */
+    -fx-background-color: #1e2b3b; /* slate-800 */
 }
 .page-container {
     -fx-padding: 32px;
@@ -29,7 +29,7 @@
     -fx-background-color: #60a5fa; /* Açık Mavi */
 }
 .scroll-bar .track {
-    -fx-background-color: #1e293b; /* Ana içerik arkaplanı */
+    -fx-background-color: #1e2b3b; /* Ana içerik arkaplanı */
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
 }
@@ -126,31 +126,57 @@
 .sidebar-logo-icon { -fx-stroke: #2563eb; -fx-stroke-width: 1.5; }
 .sidebar-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white; }
 .sidebar-nav { -fx-padding: 16px; -fx-spacing: 8px; }
+
+/* --- GÜNCELLENDİ: Nav-button temel hali --- */
 .nav-button {
     -fx-background-color: transparent;
     -fx-text-fill: #a0a0a0;
     -fx-font-size: 16px;
     -fx-font-weight: 600;
-    -fx-padding: 14px 20px;
+    -fx-padding: 14px 20px 14px 23px; /* Sol boşluk 3px arttı */
     -fx-alignment: center-left;
     -fx-cursor: hand;
-    -fx-background-radius: 12px;
+    -fx-background-radius: 0 12px 12px 0;
     -fx-graphic-text-gap: 16px;
 }
 .nav-icon { -fx-icon-size: 18px; -fx-icon-color: #94a3b8; }
+
+/* --- GÜNCELLENDİ: Hover ve Active efekti (Gradient Çizgi) --- */
 .nav-button:hover, .nav-button.active {
-    -fx-background-color: linear-gradient(to right, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.4));
     -fx-text-fill: white;
+    -fx-background-color:
+        /* Katman 1: Gradient Çizgi */
+            linear-gradient(to bottom, #3b82f6, #a855f7),
+                /* Katman 2: Yarı saydam arkaplan */
+            linear-gradient(to right, rgba(59, 130, 246, 0.4),
+            rgba(168, 85, 247, 0.4));
+
+    -fx-background-insets: 0, 0 0 0 3px; /* 2. arkaplan soldan 3px içeriden başlar */
+    -fx-background-radius: 0 12px 12px 0, 0 12px 12px 0; /* İki katman da aynı şekle sahip */
 }
 .nav-button:hover .nav-icon, .nav-button.active .nav-icon { -fx-icon-color: white; }
-.sidebar-footer { -fx-padding: 16px; -fx-border-color: #1e293b; -fx-border-width: 1px 0 0 0; }
+
+.sidebar-footer { -fx-padding: 16px; -fx-border-color: #1e2b3b; -fx-border-width: 1px 0 0 0; }
 .user-avatar { -fx-background-color: #a855f7; -fx-background-radius: 50%; -fx-pref-width: 40px; -fx-pref-height: 40px; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center; }
 .user-name { -fx-font-weight: bold; -fx-text-fill: white; }
 .user-status { -fx-font-size: 12px; -fx-text-fill: #4ade80; }
-.content-pane { -fx-background-color: #1e293b; }
+.content-pane { -fx-background-color: #1e2b3b; }
 .header-bar { -fx-background-color: #0f172a; -fx-border-color: #334155; -fx-border-width: 0 0 1px 0; }
 .view-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white; }
-.search-field { -fx-background-color: #334155; -fx-text-fill: white; -fx-prompt-text-fill: #64748b; -fx-background-radius: 8px; -fx-border-color: transparent; -fx-padding: 8px 12px; }
+.search-field {
+    -fx-background-color: #334155;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #64748b;
+    -fx-background-radius: 5px; /* Kenarları biraz daha yuvarlak yapar */
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px 10px;      /* <-- İç boşluğu artırarak daha dolgun yapar */
+    -fx-font-size: 14px;         /* <-- Yazı boyutunu büyütür */
+    -fx-max-width: 680px;        /* <-- Maksimum genişliğini sınırlar */
+}
+.search-field:focused {
+    -fx-border-color: #22d3ee;/* Tıklanınca turkuaz renkli çerçeve */
+}
 .icon-button { -fx-background-color: transparent; -fx-cursor: hand; }
 .header-icon { -fx-icon-size: 18px; -fx-icon-color: #94a3b8; }
 .icon-button:hover .header-icon { -fx-icon-color: white; }
@@ -171,19 +197,66 @@
 /* =================================================================
    4. DASHBOARD
    ================================================================= */
-.welcome-banner { -fx-background-color: #0f172a; -fx-background-radius: 20px; -fx-padding: 32px; -fx-border-color: #334155; -fx-border-radius: 20px; }
-.welcome-title { -fx-font-size: 28px; -fx-font-family: "System Bold"; -fx-text-fill: white; }
-.welcome-subtitle { -fx-font-size: 14px; -fx-text-fill: #94a3b8; }
-.action-card { -fx-background-color: #0f172a; -fx-background-radius: 16px; -fx-padding: 24px; -fx-border-color: #334155; -fx-border-radius: 16px; -fx-spacing: 20px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4); }
-.action-card:hover { -fx-border-color: #22d3ee; -fx-effect: dropshadow(gaussian, rgba(34, 211, 238, 0.2), 20, 0, 0, 0); }
-.action-card-icon-container { -fx-background-color: transparent; -fx-padding: 0; }
-.action-card-icon { -fx-icon-color: #22d3ee; -fx-icon-size: 28px; }
-.action-card-title { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; }
-.action-card-description { -fx-font-size: 16px; -fx-text-fill: #94a3b8; }
-.activity-list { -fx-background-color: #0f172a; -fx-background-radius: 16px; -fx-border-color: #334155; -fx-border-radius: 16px; -fx-padding: 8px; }
-.activity-list .list-cell { -fx-background-color: transparent; -fx-padding: 12px; }
-.activity-list .list-cell:filled { -fx-text-fill: #cbd5e1; -fx-background-radius: 8px; }
-.activity-list .list-cell:filled:hover { -fx-background-color: #1e293b; }
+.welcome-banner {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 20px;
+    -fx-padding: 32px;
+    -fx-border-color: #334155;
+    -fx-border-radius: 20px;
+}
+.welcome-title {
+    -fx-font-size: 28px;
+    -fx-font-family: "System Bold";
+    -fx-text-fill: white;
+}
+.welcome-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #94a3b8;
+}
+.action-card {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 16px;
+    -fx-padding: 24px;
+    -fx-border-color: #334155;
+    -fx-border-radius: 16px;
+    -fx-spacing: 12px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
+}
+.action-card:hover {
+    -fx-border-color: #22d3ee;
+    -fx-effect: dropshadow(gaussian, rgba(34, 211, 238, 0.2), 20, 0, 0, 0);
+}
+.action-card-icon {
+    -fx-icon-color: #22d3ee;
+    -fx-icon-size: 24px;
+}
+.action-card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.action-card-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #94a3b8;
+}
+.activity-list {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 16px;
+    -fx-border-color: #334155;
+    -fx-border-radius: 16px;
+    -fx-padding: 8px;
+    -fx-min-width: 300px;
+}
+.activity-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cbd5e1;
+    -fx-padding: 12px;
+    -fx-background-radius: 8px;
+}
+.activity-list .list-cell:filled:hover {
+    -fx-background-color: #1e2b3b;
+}
 
 /* =================================================================
    5. MESSAGES
@@ -191,12 +264,12 @@
 .messages-container { -fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0; -fx-background-radius: 0; }
 .contact-list-pane { -fx-background-color: #161f31; -fx-min-width: 320px; -fx-max-width: 320px; -fx-border-color: transparent #334155 transparent transparent; }
 .messages-container > .split-pane-divider { -fx-background-color: #334155; -fx-padding: 0 1px; }
-.search-box-container { -fx-padding: 16px; -fx-border-color: transparent transparent #334155 transparent; }
+.search-box-container { -fx-padding:16px; -fx-border-color: transparent transparent #334155 transparent; }
 .contact-list-view { -fx-background-color: transparent; -fx-padding: 0 8px; }
 .contact-list-view .list-cell { -fx-background-color: transparent; -fx-padding: 12px; }
 .contact-list-view .list-cell:filled { -fx-background-radius: 12px; -fx-cursor: hand; -fx-border-width: 0 0 0 4px; -fx-border-color: transparent; }
-.contact-list-view .list-cell:filled:hover { -fx-background-color: #1e293b; }
-.contact-list-view .list-cell:filled:selected { -fx-background-color: #1e293b; -fx-border-color: #2563eb; }
+.contact-list-view .list-cell:filled:hover { -fx-background-color: #1e2b3b; }
+.contact-list-view .list-cell:filled:selected { -fx-background-color: #1e2b3b; -fx-border-color: #2563eb; }
 .contact-avatar { -fx-background-color: #2563eb; -fx-background-radius: 50%; -fx-pref-width: 48px; -fx-pref-height: 48px; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-alignment: center; }
 .contact-name { -fx-font-weight: bold; -fx-text-fill: white; }
 .contact-last-message { -fx-text-fill: #94a3b8; }
@@ -218,7 +291,7 @@
 .message-avatar { -fx-background-color: #2563eb; -fx-background-radius: 50%; -fx-pref-width: 32px; -fx-pref-height: 32px; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-alignment: center; }
 .chat-input-area { -fx-padding: 12px 24px; -fx-spacing: 12px; -fx-border-color: #334155 transparent transparent transparent; }
 .chat-input-field-container {
-    -fx-background-color: #1e293b;
+    -fx-background-color: #1e2b3b;
     -fx-background-radius: 20px;
     -fx-border-color: #475569;
     -fx-border-radius: 20px;
@@ -249,9 +322,9 @@
 .filter-bar { -fx-padding: 8px; -fx-background-color: #0f172a; -fx-background-radius: 12px; }
 .filter-button { -fx-background-color: transparent; -fx-text-fill: #94a3b8; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8px 16px; -fx-background-radius: 8px; -fx-cursor: hand; }
 .filter-button:hover, .filter-button.active { -fx-background-color: linear-gradient(to right, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.4)); -fx-text-fill: white; }
-.friends-list-view .list-cell:filled:hover { -fx-background-color: #1e293b; -fx-border-color: #2563eb; -fx-border-radius: 12px; }
+.friends-list-view .list-cell:filled:hover { -fx-background-color: #1e2b3b; -fx-border-color: #2563eb; -fx-border-radius: 12px; }
 .friends-section-box, .friends-section-box .viewport { -fx-background-color: transparent; -fx-padding: 0; }
-#friendsContainer { -fx-background-color: #1e293b; -fx-background-radius: 12px; -fx-padding: 12px; }
+#friendsContainer { -fx-background-color: #1e2b3b; -fx-background-radius: 12px; -fx-padding: 12px; }
 .friends-list-view { -fx-background-color: transparent; }
 .friends-list-view .list-cell:filled { -fx-background-color: #111827; -fx-background-radius: 12px; -fx-padding: 16px; -fx-cursor: hand; -fx-border-width: 0 0 0 4px; -fx-border-color: transparent; -fx-background-insets: 0 0 10px 0; }
 .friends-list-view .list-cell { -fx-background-color: transparent; -fx-padding: 16px; }
@@ -309,7 +382,7 @@
    10. SECURE ROOM (NEW MEETING)
    ================================================================= */
 .secure-room-container {
-    -fx-background-color: #1e293b;
+    -fx-background-color: #1e2b3b;
 }
 .camera-view {
     -fx-background-color: #0f172a;
@@ -335,7 +408,7 @@
     -fx-icon-size: 18px;
 }
 .room-id-box {
-    -fx-background-color: #1e293b;
+    -fx-background-color: #1e2b3b;
     -fx-background-radius: 8px;
     -fx-padding: 0 0 0 15px;
     -fx-border-color: #475569;
@@ -374,17 +447,17 @@
     -fx-icon-color: white;
 }
 .settings-combo-box {
-    -fx-background-color: #1e293b;
+    -fx-background-color: #1e2b3b;
     -fx-border-color: #475569;
     -fx-border-radius: 8px;
     -fx-background-radius: 8px;
     -fx-text-fill: white;
-    -jfx-focus-color: transparent; /* Turkuaz çerçeve kaldırıldı */
-    -jfx-unfocus-color: transparent; /* Turkuaz çerçeve kaldırıldı */
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent;
 }
 .jfx-combo-box-popup .list-view {
-    -fx-background-color: #1e293b;
-    -fx-background-radius: 8px; /* Açılır panelin köşeleri yuvarlak yapıldı */
+    -fx-background-color: #1e2b3b;
+    -fx-background-radius: 8px;
     -fx-padding: 5px;
     -fx-border-color: #475569;
     -fx-border-radius: 8px;
@@ -409,39 +482,35 @@
     -fx-background-radius: 4px;
 }
 .mic-test-bar .bar {
-    -fx-background-color: #4ade80; /* DÜZELTME: Yeşil renk */
+    -fx-background-color: #4ade80;
     -fx-background-radius: 4px;
     -fx-background-insets: 0;
     -fx-padding: 0;
 }
 .hub-item {
     -fx-padding: 15px;
-    -fx-border-color: #475569; /* Muted Gray */
+    -fx-border-color: #475569;
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
-    -fx-background-color: #1e293b; /* Slate-800 */
+    -fx-background-color: #1e2b3b;
     -fx-background-radius: 5px;
     -fx-cursor: hand;
 }
-
 .hub-item:hover {
-    -fx-background-color: #334155; /* Slate-700 */
-    -fx-border-color: #60a5fa; /* Light Blue */
+    -fx-background-color: #334155;
+    -fx-border-color: #60a5fa;
 }
-
 .hub-icon {
     -fx-font-size: 24px;
-    -fx-text-fill: #94a3b8; /* Light Gray */
+    -fx-text-fill: #94a3b8;
 }
-
 .hub-name {
     -fx-font-size: 18px;
-    -fx-text-fill: #e2e8f0; /* Light Text */
+    -fx-text-fill: #e2e8f0;
 }
-
 .hub-members {
     -fx-font-size: 14px;
-    -fx-text-fill: #94a3b8; /* Light Gray */
+    -fx-text-fill: #94a3b8;
 }
 .search-container {
     -fx-alignment: center-left;
@@ -468,20 +537,18 @@
 }
 
 /* =================================================================
-   11. MEETING PANEL (Bu bölümü ekleyin veya güncelleyin)
+   11. MEETING PANEL
    ================================================================= */
 .meeting-top-bar {
-    -fx-background-color: #1e293b;
+    -fx-background-color: #1e2b3b;
     -fx-border-color: #334155;
     -fx-border-width: 0 0 1px 0;
 }
-
 .meeting-title-label {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #e2e8f0;
 }
-
 .timer-label {
     -fx-font-size: 14px;
     -fx-text-fill: #94a3b8;
@@ -489,12 +556,10 @@
     -fx-padding: 6px 12px;
     -fx-background-radius: 6px;
 }
-
 .top-bar-icon {
     -fx-icon-color: #94a3b8;
     -fx-icon-size: 16px;
 }
-
 .top-bar-button {
     -fx-background-color: #3b82f6;
     -fx-text-fill: white;
@@ -507,11 +572,9 @@
 .top-bar-button .top-bar-icon {
     -fx-icon-color: white;
 }
-
 .meeting-bottom-bar {
     -fx-background-color: #0f172a;
 }
-
 .meeting-control-button, .meeting-control-button-blue {
     -fx-background-color: #273345;
     -fx-text-fill: #cbd5e1;
@@ -528,7 +591,6 @@
 .meeting-control-button.active:hover {
     -fx-background-color: #b71c1c; /* Kırmızının daha koyu bir tonu */
 }
-
 .meeting-control-button-blue {
     -fx-background-color: #3b82f6;
     -fx-text-fill: white;
@@ -539,8 +601,6 @@
 .meeting-control-button-blue .control-icon {
     -fx-icon-color: white;
 }
-
-
 .bottom-bar-icon-button {
     -fx-background-color: transparent;
 }
@@ -551,7 +611,6 @@
 .bottom-bar-icon-button:hover .bottom-bar-icon {
     -fx-icon-color: white;
 }
-
 .leave-button {
     -fx-background-color: #ef4444;
     -fx-text-fill: white;
@@ -562,58 +621,47 @@
 .leave-button:hover {
     -fx-background-color: #dc2626;
 }
-
 .video-tile {
     -fx-background-color: #0f172a;
     -fx-background-radius: 12px;
     -fx-alignment: center;
 }
-
 .video-tile-avatar-label {
     -fx-font-size: 64px;
     -fx-font-weight: bold;
     -fx-text-fill: #475569;
 }
-
 .video-tile-nametag {
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-background-radius: 6px;
     -fx-padding: 4px 8px;
 }
-
 .video-tile-name-label {
     -fx-text-fill: white;
     -fx-font-size: 13px;
 }
-
 .video-tile-mic-icon {
     -fx-icon-size: 12px;
     -fx-icon-color: white;
 }
-
 .icon-danger {
     -fx-icon-color: #ef4444 !important;
 }
-
 .right-panel {
     -fx-background-color: #161f31;
 }
-
 .right-panel > .stack-pane {
     -fx-background-color: transparent;
 }
-
 .right-panel .sidebar-scroll-pane,
 .right-panel .sidebar-scroll-pane > .viewport {
     -fx-background-color: transparent;
     -fx-background: transparent;
 }
-
 .right-panel-toggle-bar {
     -fx-border-color: #334155;
     -fx-border-width: 0 0 1px 0;
 }
-
 .sidebar-toggle-button {
     -fx-background-color: transparent;
     -fx-text-fill: #94a3b8;
@@ -625,21 +673,17 @@
     -fx-border-radius: 0;
     -fx-pref-width: 160px;
 }
-
 .sidebar-toggle-button:selected {
     -fx-text-fill: #e2e8f0;
     -fx-border-color: #3b82f6;
 }
-
 .sidebar-scroll-pane {
     -fx-background: transparent;
     -fx-background-color: transparent;
 }
-
 .sidebar-scroll-pane .viewport {
     -fx-background-color: transparent;
 }
-
 .participant-list-item {
     -fx-background-radius: 8px;
     -fx-cursor: hand;
@@ -647,7 +691,6 @@
 .participant-list-item:hover {
     -fx-background-color: #334155;
 }
-
 .participant-avatar {
     -fx-background-color: #3b82f6;
     -fx-text-fill: white;
@@ -658,33 +701,27 @@
     -fx-pref-height: 32px;
     -fx-alignment: center;
 }
-
 .participant-name {
     -fx-text-fill: #e2e8f0;
     -fx-font-weight: 500;
 }
-
 .participant-role {
     -fx-text-fill: #64748b;
     -fx-font-size: 12px;
 }
-
 .participant-list-icon {
     -fx-icon-size: 16px;
     -fx-icon-color: #94a3b8;
 }
-
 .placeholder-text {
     -fx-text-fill: #64748b;
     -fx-font-size: 14px;
     -fx-text-alignment: center;
 }
-
 .control-icon {
     -fx-icon-size: 18px;
     -fx-icon-color: #cbd5e1;
 }
-
 .layout-button {
     -fx-background-color: transparent;
     -fx-padding: 8px 12px;
@@ -692,20 +729,16 @@
     -fx-border-color: transparent;
     -fx-border-width: 0 0 3px 0;
 }
-
 .layout-icon {
     -fx-icon-color: #94a3b8;
     -fx-icon-size: 18px;
 }
-
 .layout-button:hover .layout-icon {
     -fx-icon-color: white;
 }
-
 .layout-button.active .layout-icon {
     -fx-icon-color: white;
 }
-
 .layout-button.active {
     -fx-border-color: #3b82f6;
 }
@@ -714,16 +747,13 @@
     -fx-background-radius: 50%;
     -fx-padding: 6px;
 }
-
 .participant-action-button:hover {
     -fx-background-color: #334155;
 }
-
 .participant-action-icon {
     -fx-icon-color: #94a3b8;
     -fx-icon-size: 14px;
 }
-
 .context-menu {
     -fx-background-color: #273345;
     -fx-background-radius: 8px;
@@ -753,10 +783,138 @@
 .context-menu .menu-item.menu-item-danger:focused .label {
     -fx-text-fill: white;
 }
-
-/* Stiller dosyanızın herhangi bir yerine ekleyin */
 .error-field {
     -fx-border-color: #e53e3e; /* Kırmızı bir ton */
     -fx-border-width: 1.5px;
     -fx-border-radius: 4px; /* Kenar yuvarlaklığı */
+}
+
+/* =================================================================
+   >>> YENİ MİNİMALİST YAPI İÇİN EKLEMELER <<<
+   ================================================================= */
+
+/* Minimal sidebar'ın genişliğini ayarlar ve içeriği ortalar */
+.sidebar.sidebar-minimal {
+    -fx-pref-width: 40px; /* Genişliği daralt */
+    -fx-alignment: TOP-CENTER;
+    -fx-padding: 0;
+}
+
+/* Minimal sidebar başlığının (sadece logo) padding'ini ayarlar */
+.sidebar.sidebar-minimal {
+    -fx-pref-width: 75px; /* Genişliği biraz daha daralt */
+    -fx-alignment: TOP-CENTER;
+    -fx-padding: 0;
+}
+
+/* İkon ve metin içeren butonların boyutunu ve stilini ayarlar */
+.sidebar.sidebar-minimal .nav-button {
+    -fx-pref-width: 65px; /* Genişliği hafif artır */
+    -fx-pref-height: 65px; /* Yüksekliği artır */
+    -fx-alignment: CENTER;
+    -fx-graphic-text-gap: 6px; /* İkon ile metin arasına boşluk ekle */
+    -fx-font-size: 11px; /* Fontu küçült ve soft bir görünüm ver */
+    -fx-padding: 5px 0 5px 0; /* İç boşluk */
+    -fx-line-spacing: 4px;
+}
+
+/* Sağ üstteki profil kutusu için cursor ve hover efekti */
+.header-profile-box {
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+    -fx-background-radius: 8px;
+}
+
+.header-profile-box:hover {
+    -fx-background-color: #334155; /* search-field rengi */
+}
+
+/* =================================================================
+   KULLANICI PROFİL VE DURUM MENÜSÜ (YENİ)
+   ================================================================= */
+
+/* Profil resminin sağ alt köşesindeki durum noktası */
+.status-dot {
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+    -fx-min-width: 12px;
+    -fx-min-height: 12px;
+    -fx-max-width: 12px;
+    -fx-max-height: 12px;
+    -fx-background-radius: 50%; /* Tam yuvarlak */
+    -fx-border-color: #0f172a;  /* sidebar arkaplan rengi */
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 1);
+}
+
+/* Durum renkleri */
+.status-online { -fx-background-color: #4ade80; } /* Yeşil */
+.status-idle { -fx-background-color: #facc15; } /* Sarı */
+.status-dnd { -fx-background-color: #ef4444; } /* Kırmızı */
+.status-offline { -fx-background-color: #64748b; } /* Gri */
+
+/* Özel Pop-up Menü Kapsayıcısı */
+.profile-popup {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 8px;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 15, 0, 0, 5);
+}
+
+/* Menüdeki her bir satır (HBox) */
+.profile-menu-item {
+    -fx-padding: 10px 12px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-spacing: 12px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.profile-menu-item:hover {
+    -fx-background-color: #2563eb;
+}
+
+/* Menüdeki ikonlar */
+.profile-menu-icon {
+    -fx-icon-color: #94a3b8;
+    -fx-icon-size: 16px;
+}
+
+.profile-menu-item:hover .profile-menu-icon {
+    -fx-icon-color: white;
+}
+
+/* Menüdeki yazılar */
+.profile-menu-label {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 14px;
+}
+
+.profile-menu-item:hover .profile-menu-label {
+    -fx-text-fill: white;
+}
+
+/* Menüdeki durum noktaları */
+.status-dot-menu {
+    -fx-pref-width: 10px;
+    -fx-pref-height: 10px;
+    -fx-background-radius: 50%;
+}
+
+/* Seçili durumu gösteren tik işareti */
+.checkmark-icon {
+    -fx-icon-color: #22d3ee;
+    -fx-icon-size: 14px;
+}
+
+/* Menüdeki ayırıcı çizgi */
+.profile-menu-separator {
+    -fx-padding: 4px 0;
+}
+.profile-menu-separator .line {
+    -fx-border-color: #334155;
+    -fx-border-width: 1 0 0 0;
 }

@@ -8,28 +8,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
-<!--
-  YAPILAN DEĞİŞİKLİK:
-  - "Quick Actions" VBox'ındaki GridPane'e VBox.vgrow="ALWAYS" eklendi.
-  - RowConstraints'e prefHeight="150" eklenerek kartların dikey olarak daha fazla yer kaplaması sağlandı.
-  - GridPane'deki maxWidth kaldırıldı.
--->
-<VBox spacing="30.0" styleClass="page-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saferoom.controller.DashboardController">
+<VBox spacing="30.0" styleClass="page-container" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saferoom.controller.DashboardController">
+    <padding>
+        <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+    </padding>
     <children>
-        <!-- "Welcome Back" Banner'ı -->
         <VBox styleClass="welcome-banner">
             <children>
                 <Label styleClass="welcome-title" text="Welcome back, Username!" />
                 <Label styleClass="welcome-subtitle" text="You have 2 new notifications and 1 pending room invite." />
             </children>
         </VBox>
-        <!-- Ana İçerik Alanı -->
+
         <HBox spacing="30.0" VBox.vgrow="ALWAYS">
             <children>
-                <!-- Sol Taraf: Hızlı Eylemler -->
-                <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                     <children>
                         <Label styleClass="section-title" text="Quick Actions" />
                         <GridPane hgap="20.0" vgap="20.0" VBox.vgrow="ALWAYS">
@@ -38,23 +33,47 @@
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <fx:include fx:id="newMeetingCard" source="cards/ActionCard.fxml" />
-                                <fx:include fx:id="joinRoomCard" source="cards/ActionCard.fxml" GridPane.columnIndex="1" />
-                                <fx:include fx:id="scheduleRoomCard" source="cards/ActionCard.fxml" GridPane.rowIndex="1" />
-                                <fx:include fx:id="encryptedFilesCard" source="cards/ActionCard.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <VBox fx:id="newMeetingCard" styleClass="action-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <children>
+                                        <FontIcon iconLiteral="fas-plus-circle" styleClass="action-card-icon" />
+                                        <Label styleClass="action-card-title" text="New Meeting" />
+                                        <Label styleClass="action-card-description" text="Instant Secure Room" />
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="joinRoomCard" styleClass="action-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <children>
+                                        <FontIcon iconLiteral="fas-arrow-right" styleClass="action-card-icon" />
+                                        <Label styleClass="action-card-title" text="Join Meeting" />
+                                        <Label styleClass="action-card-description" text="Connect to Tunnel" />
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="scheduleRoomCard" styleClass="action-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <children>
+                                        <FontIcon iconLiteral="far-clock" styleClass="action-card-icon" />
+                                        <Label styleClass="action-card-title" text="Schedule Room" />
+                                        <Label styleClass="action-card-description" text="Programmatic Sync" />
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="encryptedFilesCard" styleClass="action-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <children>
+                                        <FontIcon iconLiteral="fas-shield-alt" styleClass="action-card-icon" />
+                                        <Label styleClass="action-card-title" text="Encrypted Files" />
+                                        <Label styleClass="action-card-description" text="File Vault" />
+                                    </children>
+                                </VBox>
                             </children>
                         </GridPane>
                     </children>
                 </VBox>
-                <!-- Sağ Taraf: Son Aktiviteler -->
-                <VBox maxWidth="350.0" minWidth="300.0" spacing="20.0">
+
+                <VBox spacing="10.0">
                     <children>
                         <Label styleClass="section-title" text="Recent Activity" />
-                        <ListView fx:id="activityListView" styleClass="activity-list" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="activityListView" styleClass="activity-list" />
                     </children>
                 </VBox>
             </children>
