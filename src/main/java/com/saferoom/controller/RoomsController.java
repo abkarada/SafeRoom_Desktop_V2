@@ -5,9 +5,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.FlowPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,47 +19,132 @@ public class RoomsController implements Initializable {
     private TextField searchTextField;
 
     @FXML
-    private VBox hubListContainer;
+    private FlowPane hubListContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialize search functionality for rooms
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterHubs(newValue);
+            filterRooms(newValue);
         });
+        
+        // Setup room card click handlers
+        setupRoomHandlers();
     }
 
-    private void filterHubs(String searchText) {
+    private void filterRooms(String searchText) {
         String lowerCaseSearchText = searchText.toLowerCase();
-        for (Node node : hubListContainer.getChildren()) {
-            if (node instanceof AnchorPane) {
-                AnchorPane hubItem = (AnchorPane) node;
-                Label hubNameLabel = findHubNameLabel(hubItem);
+        
+        if (hubListContainer != null) {
+            for (Node node : hubListContainer.getChildren()) {
+                if (node instanceof VBox && node.getStyleClass().contains("compact-room-card")) {
+                    VBox roomCard = (VBox) node;
+                    Label roomNameLabel = findRoomNameLabel(roomCard);
 
-                if (hubNameLabel != null) {
-                    String hubName = hubNameLabel.getText().toLowerCase();
-                    if (hubName.contains(lowerCaseSearchText)) {
-                        hubItem.setVisible(true);
-                        hubItem.setManaged(true);
-                    } else {
-                        hubItem.setVisible(false);
-                        hubItem.setManaged(false);
+                    if (roomNameLabel != null) {
+                        String roomName = roomNameLabel.getText().toLowerCase();
+                        if (roomName.contains(lowerCaseSearchText) || searchText.isEmpty()) {
+                            roomCard.setVisible(true);
+                            roomCard.setManaged(true);
+                        } else {
+                            roomCard.setVisible(false);
+                            roomCard.setManaged(false);
+                        }
                     }
                 }
             }
         }
     }
 
-    private Label findHubNameLabel(AnchorPane hubItem) {
-        for (Node node : hubItem.getChildren()) {
-            if (node instanceof HBox) {
-                HBox hbox = (HBox) node;
-                for (Node childNode : hbox.getChildren()) {
-                    if (childNode.getStyleClass().contains("hub-name")) {
-                        return (Label) childNode;
+    private Label findRoomNameLabel(VBox roomCard) {
+        // Look for the room name label in the compact room card
+        for (Node node : roomCard.getChildren()) {
+            if (node instanceof VBox && node.getStyleClass().contains("room-info-compact")) {
+                VBox roomInfo = (VBox) node;
+                for (Node infoChild : roomInfo.getChildren()) {
+                    if (infoChild instanceof Label && infoChild.getStyleClass().contains("room-name-compact")) {
+                        return (Label) infoChild;
                     }
                 }
             }
         }
         return null;
+    }
+    
+    private void setupRoomHandlers() {
+        if (hubListContainer != null) {
+            for (Node node : hubListContainer.getChildren()) {
+                if (node instanceof VBox && node.getStyleClass().contains("compact-room-card")) {
+                    VBox roomCard = (VBox) node;
+                    
+                    // Setup click handler for room card to navigate to room
+                    roomCard.setOnMouseClicked(event -> {
+                        // Check if click was on action buttons, if so, don't navigate
+                        if (!isActionButtonClick(event.getTarget())) {
+                            navigateToRoom(roomCard);
+                        }
+                    });
+                    
+                    // Setup handlers for action buttons
+                    setupCompactActionButtons(roomCard);
+                }
+            }
+        }
+    }
+    
+    private boolean isActionButtonClick(Object target) {
+        // Check if the click target is an action button or its child elements
+        if (target instanceof Node) {
+            Node node = (Node) target;
+            while (node != null) {
+                if (node.getStyleClass().contains("quick-action-btn")) {
+                    return true;
+                }
+                node = node.getParent();
+            }
+        }
+        return false;
+    }
+    
+    private void navigateToRoom(VBox roomCard) {
+        // Get room name for navigation
+        Label roomNameLabel = findRoomNameLabel(roomCard);
+        if (roomNameLabel != null) {
+            String roomName = roomNameLabel.getText();
+            System.out.println("Navigating to room: " + roomName);
+            // Add navigation logic here
+        }
+    }
+    
+    private void setupCompactActionButtons(VBox roomCard) {
+        // Find and setup action buttons in the room card
+        for (Node node : roomCard.getChildren()) {
+            if (node instanceof VBox && node.getStyleClass().contains("room-info-compact")) {
+                VBox roomInfo = (VBox) node;
+                for (Node infoChild : roomInfo.getChildren()) {
+                    if (infoChild instanceof HBox && infoChild.getStyleClass().contains("quick-actions")) {
+                        HBox actionsBox = (HBox) infoChild;
+                        for (Node actionNode : actionsBox.getChildren()) {
+                            if (actionNode instanceof Button) {
+                                Button actionBtn = (Button) actionNode;
+                                setupActionButtonHandler(actionBtn);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private void setupActionButtonHandler(Button actionBtn) {
+        actionBtn.setOnAction(event -> {
+            if (actionBtn.getStyleClass().contains("voice-quick")) {
+                System.out.println("Voice action clicked");
+                // Add voice connection logic here
+            } else if (actionBtn.getStyleClass().contains("chat-quick")) {
+                System.out.println("Chat action clicked");
+                // Add chat navigation logic here
+            }
+        });
     }
 } 

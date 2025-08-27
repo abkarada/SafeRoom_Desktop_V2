@@ -56,11 +56,8 @@
         <BorderPane styleClass="content-pane">
             <top>
                 <BorderPane prefHeight="60.0" styleClass="header-bar">
-                    <center>
-                        <TextField promptText="Search SafeRoom..." styleClass="search-field" BorderPane.alignment="CENTER" />
-                    </center>
                     <right>
-                        <HBox alignment="CENTER" spacing="16.0" styleClass="header-right-box">
+                        <HBox alignment="CENTER" spacing="8.0" styleClass="header-right-box">
                             <children>
                                 <JFXButton fx:id="notificationsButton" styleClass="icon-button" text="">
                                     <graphic>
@@ -70,20 +67,36 @@
 
                                 <StackPane fx:id="profileBox" styleClass="header-profile-box">
                                     <children>
-                                        <HBox alignment="CENTER_LEFT" spacing="12.0">
-                                            <children>
-                                                <Label fx:id="userAvatar" styleClass="user-avatar" text="U" />
-                                                <Label fx:id="usernameLabel" text="Username" styleClass="user-name" />
-                                            </children>
-                                        </HBox>
-                                        <Region fx:id="statusDot" styleClass="status-dot, status-online" StackPane.alignment="BOTTOM_RIGHT" />
+                                        <Label fx:id="userAvatar" styleClass="user-avatar" text="U" />
+                                        <Region fx:id="statusDot" styleClass="status-dot, status-dot-online" StackPane.alignment="BOTTOM_RIGHT" />
                                     </children>
                                 </StackPane>
+
+                                <!-- Window Control Buttons -->
+                                <HBox alignment="CENTER" spacing="0" styleClass="window-controls">
+                                    <children>
+                                        <JFXButton fx:id="minimizeButton" styleClass="window-control-button, minimize-button" text="">
+                                            <graphic>
+                                                <FontIcon iconLiteral="fas-minus" styleClass="window-control-icon" />
+                                            </graphic>
+                                        </JFXButton>
+                                        <JFXButton fx:id="maximizeButton" styleClass="window-control-button, maximize-button" text="">
+                                            <graphic>
+                                                <FontIcon iconLiteral="far-square" styleClass="window-control-icon" />
+                                            </graphic>
+                                        </JFXButton>
+                                        <JFXButton fx:id="closeButton" styleClass="window-control-button, close-button" text="">
+                                            <graphic>
+                                                <FontIcon iconLiteral="fas-times" styleClass="window-control-icon" />
+                                            </graphic>
+                                        </JFXButton>
+                                    </children>
+                                </HBox>
                             </children>
                         </HBox>
                     </right>
                     <padding>
-                        <Insets left="32.0" right="32.0" />
+                        <Insets left="32.0" right="4.0" />
                     </padding>
                 </BorderPane>
             </top>
