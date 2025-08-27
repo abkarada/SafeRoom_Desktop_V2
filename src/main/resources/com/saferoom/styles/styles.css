@@ -1057,6 +1057,7 @@
   -fx-font-weight: bold;
   -fx-text-fill: white;
   -fx-text-alignment: CENTER;
+  -fx-alignment: CENTER;
   -fx-wrap-text: true;
   -fx-max-width: 240px;
 }
