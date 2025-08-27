@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL; // URL import'u eklendi
+import java.net.URL;
 import java.util.Objects;
 
 public class MainApp extends Application {
@@ -25,7 +25,6 @@ public class MainApp extends Application {
 
         Scene scene = new Scene(root);
 
-        // DEĞİŞİKLİK: CSS dosyasının adı, projenizdeki 'styles.css' ile eşleşmesi için güncellendi.
         String cssPath = "/com/saferoom/styles/styles.css";
         URL cssUrl = MainApp.class.getResource(cssPath);
 
@@ -51,6 +50,7 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
+        // SVG ile ilgili tüm kodlar buradan kaldırıldı.
         launch(args);
     }
 }

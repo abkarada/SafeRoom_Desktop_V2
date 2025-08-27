@@ -12,12 +12,11 @@
 <VBox styleClass="page-container" spacing="30.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saferoom.controller.FileVaultController">
     <children>
         <!-- Sürükle ve Bırak Alanı -->
-        <VBox fx:id="dropZone" alignment="CENTER" spacing="15.0" styleClass="drop-zone">
+        <VBox fx:id="dropZone" alignment="CENTER" spacing="25.0" styleClass="drop-zone">
             <children>
                 <FontIcon iconLiteral="fas-cloud-upload-alt" styleClass="drop-zone-icon" />
                 <Label styleClass="drop-zone-title" text="Drag &amp; drop files to encrypt" />
                 <Label styleClass="drop-zone-subtitle" text="or click to browse" />
-                <Label styleClass="drop-zone-info" text="All files are end-to-end encrypted with AES-256." />
             </children>
         </VBox>
 

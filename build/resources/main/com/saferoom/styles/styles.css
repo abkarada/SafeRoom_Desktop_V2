@@ -51,13 +51,11 @@
 .login-background { -fx-background-color: #0f172a; }
 .login-pane {
     -fx-background-color: rgba(15, 23, 42, 0.5);
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
     -fx-border-color: rgba(59, 130, 246, 0.2);
     -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.1), 30, 0, 0, 0);
 }
 .logo-icon { -fx-stroke: #22d3ee; -fx-stroke-width: 0.5; -fx-scale-x: 4.0; -fx-scale-y: 4.0; }
-.title-label { -fx-font-family: "System Bold"; -fx-font-size: 36px; -fx-text-fill: white; }
+.title-label { -fx-font-family: "Montserrat ExtraBold";-fx-font-size: 42px;-fx-text-fill: linear-gradient(to right, #4A90E2, #9013FE); }
 .subtitle-label { -fx-font-size: 14px; -fx-text-fill: #94a3b8; }
 .input-field {
     -fx-background-color: rgba(30, 41, 59, 0.5);
@@ -85,9 +83,8 @@
 .signup-link, .forgot-password { -fx-text-fill: #22d3ee; -fx-border-color: transparent; -fx-underline: false; }
 .signup-link:hover, .forgot-password:hover { -fx-underline: true; }
 .remember-checkbox .text { -fx-fill: #94a3b8; }
-.remember-checkbox .box { -fx-background-color: transparent; -fx-border-color: #475569; -fx-border-radius: 4px; }
-.remember-checkbox:selected .box { -fx-background-color: #22d3ee; }
-.remember-checkbox:selected .mark { -fx-shape: "M3.7,7.3l2.9,2.9l5.7-5.7"; }
+.remember-checkbox .box {  -jfx-checked-color: #16e31f;-jfx-unchecked-color: #475569; }
+
 .divider-text { -fx-text-fill: #64748b; -fx-font-weight: bold; }
 .separator .line { -fx-border-color: #475569; -fx-border-width: 1 0 0 0; }
 .social-button {
@@ -167,9 +164,9 @@
     -fx-background-color: #334155;
     -fx-text-fill: white;
     -fx-prompt-text-fill: #64748b;
-    -fx-background-radius: 5px; /* Kenarları biraz daha yuvarlak yapar */
+    -fx-background-radius: 20px; /* Kenarları biraz daha yuvarlak yapar */
     -fx-border-color: transparent;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 20px;
     -fx-padding: 5px 10px;      /* <-- İç boşluğu artırarak daha dolgun yapar */
     -fx-font-size: 14px;         /* <-- Yazı boyutunu büyütür */
     -fx-max-width: 680px;        /* <-- Maksimum genişliğini sınırlar */
@@ -178,7 +175,7 @@
     -fx-border-color: #22d3ee;/* Tıklanınca turkuaz renkli çerçeve */
 }
 .icon-button { -fx-background-color: transparent; -fx-cursor: hand; }
-.header-icon { -fx-icon-size: 18px; -fx-icon-color: #94a3b8; }
+.header-icon { -fx-icon-size: 20px; -fx-icon-color: #94a3b8; }
 .icon-button:hover .header-icon { -fx-icon-color: white; }
 .action-button {
     -fx-background-color: #2563eb;
@@ -340,10 +337,9 @@
    7. FILE VAULT
    ================================================================= */
 .drop-zone { -fx-background-color: #0f172a; -fx-background-radius: 16px; -fx-border-color: #334155; -fx-border-style: dashed; -fx-border-width: 2px; -fx-border-radius: 16px; -fx-padding: 40px; }
-.drop-zone-icon { -fx-icon-color: #94a3b8; -fx-icon-size: 48px; }
+.drop-zone-icon { -fx-icon-color: #94a3b8; -fx-icon-size: 100px; }
 .drop-zone-title { -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white; }
 .drop-zone-subtitle { -fx-font-size: 14px; -fx-text-fill: #22d3ee; -fx-cursor: hand; -fx-underline: true; }
-.drop-zone-info { -fx-font-size: 12px; -fx-text-fill: #64748b; }
 .file-card { -fx-background-color: #0f172a; -fx-background-radius: 12px; -fx-padding: 20px; -fx-border-color: #334155; -fx-border-radius: 12px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2); -fx-pref-width: 250px; -fx-transition: -fx-translate-y 200ms, -fx-effect 200ms; }
 .file-card:hover { -fx-translate-y: -4px; -fx-effect: dropshadow(gaussian, rgba(34, 211, 238, 0.2), 20, 0, 0, 0); }
 .file-icon { -fx-icon-color: #60a5fa; -fx-icon-size: 32px; }
@@ -835,17 +831,19 @@
 
 /* Profil resminin sağ alt köşesindeki durum noktası */
 .status-dot {
-    -fx-pref-width: 12px;
-    -fx-pref-height: 12px;
-    -fx-min-width: 12px;
-    -fx-min-height: 12px;
-    -fx-max-width: 12px;
-    -fx-max-height: 12px;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 8px;
+    -fx-min-width: 8px;
+    -fx-min-height: 8px;
+    -fx-max-width: 8px;
+    -fx-max-height: 8px;
     -fx-background-radius: 50%; /* Tam yuvarlak */
     -fx-border-color: #0f172a;  /* sidebar arkaplan rengi */
-    -fx-border-width: 2px;
+    -fx-border-width: 0px;
     -fx-border-radius: 50%;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 5, 0, 0, 1);
+    -fx-translate-x: -2px;
+    -fx-translate-y: -2px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0), 0, 0, 0, 0);
 }
 
 /* Durum renkleri */

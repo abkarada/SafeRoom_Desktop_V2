@@ -16,37 +16,37 @@
     <content>
         <VBox styleClass="page-container" spacing="30.0">
             <children>
-                <!-- Profil Bölümü -->
+                <!-- Profile Section -->
                 <VBox spacing="15.0">
                     <children>
-                        <Label styleClass="settings-section-title" text="Profil" />
+                        <Label styleClass="settings-section-title" text="Profile" />
                         <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="setting-row">
                             <children>
                                 <Label styleClass="user-avatar" text="U" />
                                 <VBox>
                                     <children>
-                                        <Label styleClass="setting-title" text="Kullanıcı Adı" />
-                                        <Label styleClass="setting-description" text="kullanici@saferoom.com" />
+                                        <Label styleClass="setting-title" text="Username" />
+                                        <Label styleClass="setting-description" text="user@saferoom.com" />
                                     </children>
                                 </VBox>
                                 <Pane HBox.hgrow="ALWAYS" />
-                                <Hyperlink text="Avatar Değiştir" styleClass="signup-link" />
+                                <Hyperlink text="Change Avatar" styleClass="signup-link" />
                             </children>
                         </HBox>
                         <Separator styleClass="settings-separator" />
                     </children>
                 </VBox>
 
-                <!-- Gizlilik ve Güvenlik Bölümü -->
+                <!-- Privacy & Security Section -->
                 <VBox spacing="15.0">
                     <children>
-                        <Label styleClass="settings-section-title" text="Gizlilik ve Güvenlik" />
+                        <Label styleClass="settings-section-title" text="Privacy &amp; Security" />
                         <HBox alignment="CENTER_LEFT" styleClass="setting-row">
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label styleClass="setting-title" text="İki Faktörlü Kimlik Doğrulama" />
-                                        <Label styleClass="setting-description" text="Hesabınıza ekstra güvenlik katmanı ekleyin" />
+                                        <Label styleClass="setting-title" text="Two-Factor Authentication" />
+                                        <Label styleClass="setting-description" text="Add an extra layer of security to your account" />
                                     </children>
                                 </VBox>
                                 <Pane HBox.hgrow="ALWAYS" />
@@ -57,8 +57,8 @@
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label styleClass="setting-title" text="Uçtan Uca Şifreleme" />
-                                        <Label styleClass="setting-description" text="Tüm iletişimler için otomatik şifreleme etkinleştir" />
+                                        <Label styleClass="setting-title" text="End-to-End Encryption" />
+                                        <Label styleClass="setting-description" text="Enable automatic encryption for all communications" />
                                     </children>
                                 </VBox>
                                 <Pane HBox.hgrow="ALWAYS" />
@@ -69,8 +69,8 @@
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label styleClass="setting-title" text="Çevrimiçi Durumu Göster" />
-                                        <Label styleClass="setting-description" text="Arkadaşlarınızın çevrimiçi olduğunuzu görmesine izin ver" />
+                                        <Label styleClass="setting-title" text="Show Online Status" />
+                                        <Label styleClass="setting-description" text="Let your friends see when you are online" />
                                     </children>
                                 </VBox>
                                 <Pane HBox.hgrow="ALWAYS" />
@@ -81,16 +81,16 @@
                     </children>
                 </VBox>
 
-                <!-- Bildirimler Bölümü -->
+                <!-- Notifications Section -->
                 <VBox spacing="15.0">
                     <children>
-                        <Label styleClass="settings-section-title" text="Bildirimler" />
+                        <Label styleClass="settings-section-title" text="Notifications" />
                         <HBox alignment="CENTER_LEFT" styleClass="setting-row">
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label styleClass="setting-title" text="Masaüstü Bildirimleri" />
-                                        <Label styleClass="setting-description" text="Yeni mesajlar ve aramalar için bildirim al" />
+                                        <Label styleClass="setting-title" text="Desktop Notifications" />
+                                        <Label styleClass="setting-description" text="Receive notifications for new messages and calls" />
                                     </children>
                                 </VBox>
                                 <Pane HBox.hgrow="ALWAYS" />
@@ -101,8 +101,8 @@
                             <children>
                                 <VBox>
                                     <children>
-                                        <Label styleClass="setting-title" text="Ses Bildirimleri" />
-                                        <Label styleClass="setting-description" text="Bildirimler için ses çal" />
+                                        <Label styleClass="setting-title" text="Sound Notifications" />
+                                        <Label styleClass="setting-description" text="Play a sound for notifications" />
                                     </children>
                                 </VBox>
                                 <Pane HBox.hgrow="ALWAYS" />
@@ -111,7 +111,7 @@
                         </HBox>
                         <VBox spacing="10.0" styleClass="setting-row">
                             <children>
-                                <Label styleClass="setting-title" text="Bildirim Ses Düzeyi" />
+                                <Label styleClass="setting-title" text="Notification Volume" />
                                 <JFXSlider fx:id="volumeSlider" value="75.0" styleClass="settings-slider" />
                             </children>
                         </VBox>
@@ -119,14 +119,14 @@
                     </children>
                 </VBox>
 
-                <!-- Tehlikeli Alan Bölümü -->
+                <!-- Danger Zone Section -->
                 <VBox spacing="15.0">
                     <children>
-                        <Label styleClass="settings-section-title-danger" text="Tehlikeli Alan" />
+                        <Label styleClass="settings-section-title-danger" text="Danger Zone" />
                         <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="setting-row">
                             <children>
-                                <Button fx:id="clearDataButton" styleClass="danger-button" text="Tüm Verileri Temizle" />
-                                <Button fx:id="deleteAccountButton" styleClass="danger-button" text="Hesabı Sil" />
+                                <Button fx:id="clearDataButton" styleClass="danger-button" text="Clear All Data" />
+                                <Button fx:id="deleteAccountButton" styleClass="danger-button" text="Delete Account" />
                             </children>
                         </HBox>
                     </children>

@@ -21,9 +21,9 @@
             <children>
                 <HBox alignment="CENTER" prefHeight="60.0" styleClass="sidebar-header-minimal">
                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../assets/logo.jpg" />
+                                <Image url="@../assets/logo.png" />
                             </image>
                         </ImageView>
                     </children>
@@ -55,7 +55,7 @@
     <center>
         <BorderPane styleClass="content-pane">
             <top>
-                <BorderPane prefHeight="60.0" styleClass="header-bar">
+                <BorderPane prefHeight="63.0" styleClass="header-bar">
                     <center>
                         <TextField promptText="Search SafeRoom..." styleClass="search-field" BorderPane.alignment="CENTER" />
                     </center>
@@ -68,15 +68,20 @@
                                     </graphic>
                                 </JFXButton>
 
-                                <StackPane fx:id="profileBox" styleClass="header-profile-box">
+                                <!-- DÜZELTME: Profil alanı, kontrolcü ile uyumlu olması için StackPane ile sarmalandı -->
+                                <StackPane fx:id="profileBox">
                                     <children>
-                                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="header-profile-box">
                                             <children>
-                                                <Label fx:id="userAvatar" styleClass="user-avatar" text="U" />
+                                                <StackPane>
+                                                    <children>
+                                                        <Label fx:id="userAvatar" styleClass="user-avatar" text="U" />
+                                                        <Region fx:id="statusDot" styleClass="status-dot, status-online" StackPane.alignment="BOTTOM_RIGHT" />
+                                                    </children>
+                                                </StackPane>
                                                 <Label fx:id="usernameLabel" text="Username" styleClass="user-name" />
                                             </children>
                                         </HBox>
-                                        <Region fx:id="statusDot" styleClass="status-dot, status-online" StackPane.alignment="BOTTOM_RIGHT" />
                                     </children>
                                 </StackPane>
                             </children>
