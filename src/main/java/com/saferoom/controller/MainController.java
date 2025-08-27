@@ -63,10 +63,10 @@ public class MainController {
         ContextMenu userMenu = new ContextMenu();
         userMenu.getStyleClass().add("user-menu");
 
-        MenuItem onlineItem = createStatusMenuItem("Online", "status-online");
-        MenuItem idleItem = createStatusMenuItem("Idle", "status-idle");
-        MenuItem dndItem = createStatusMenuItem("Do Not Disturb", "status-dnd");
-        MenuItem offlineItem = createStatusMenuItem("Offline", "status-offline");
+        MenuItem onlineItem = createStatusMenuItem("Online", "status-dat-online");
+        MenuItem idleItem = createStatusMenuItem("Idle", "status-dat-idle");
+        MenuItem dndItem = createStatusMenuItem("Do Not Disturb", "status-dat-dnd");
+        MenuItem offlineItem = createStatusMenuItem("Offline", "status-dat-offline");
 
         SeparatorMenuItem separator = new SeparatorMenuItem();
         MenuItem settingsItem = new MenuItem("Settings");

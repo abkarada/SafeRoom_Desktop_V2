@@ -68,10 +68,6 @@ public class ChatViewController {
         }
     }
 
-    // ==========================================================
-    // DEĞİŞİKLİK: İçi boş olan metotlar dolduruldu
-    // ==========================================================
-
     public void setWidthConstraint(double width) {
         if (chatPane != null) {
             chatPane.setMaxWidth(width);
@@ -82,7 +78,7 @@ public class ChatViewController {
     public void setHeaderVisible(boolean visible) {
         if (chatHeader != null) {
             chatHeader.setVisible(visible);
-            chatHeader.setManaged(visible); // false ise yer kaplamaz
+            chatHeader.setManaged(visible);
         }
     }
 
@@ -92,7 +88,11 @@ public class ChatViewController {
         chatPartnerAvatar.setText(avatarChar);
 
         chatPartnerStatus.getStyleClass().removeAll("status-online", "status-offline");
-        if (status.equalsIgnoreCase("Online")) {
+
+        // ==========================================================
+        // DEĞİŞİKLİK BURADA: Birebir eşitlik yerine "içeriyor mu" kontrolü yapılıyor.
+        // ==========================================================
+        if (status.toLowerCase().contains("online")) {
             chatPartnerStatus.getStyleClass().add("status-online");
         } else {
             chatPartnerStatus.getStyleClass().add("status-offline");

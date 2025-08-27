@@ -849,10 +849,10 @@
 }
 
 /* Durum renkleri */
-.status-online { -fx-background-color: #4ade80; } /* Yeşil */
-.status-idle { -fx-background-color: #facc15; } /* Sarı */
-.status-dnd { -fx-background-color: #ef4444; } /* Kırmızı */
-.status-offline { -fx-background-color: #64748b; } /* Gri */
+.status-dot-online { -fx-background-color: #4ade80; }
+.status-dot-idle { -fx-background-color: #facc15; }
+.status-dot-dnd { -fx-background-color: #ef4444; }
+.status-dot-offline { -fx-background-color: #64748b; }
 
 /* Özel Pop-up Menü Kapsayıcısı */
 .profile-popup {
