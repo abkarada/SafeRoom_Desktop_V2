@@ -100,7 +100,7 @@ public class MainController {
         return instance;
     }
 
-    private void handleDashboard() { setActiveButton(dashboardButton); loadView("DashboardView.fxml"); }
+    private void handleDashboard() { setActiveButton(dashboardButton); loadView("DashBoardView.fxml"); }
     public void handleRooms() { setActiveButton(roomsButton); loadView("RoomsView.fxml"); }
     private void handleMessages() { setActiveButton(messagesButton); loadView("MessagesView.fxml"); }
     private void handleFriends() { setActiveButton(friendsButton); loadView("FriendsView.fxml"); }
