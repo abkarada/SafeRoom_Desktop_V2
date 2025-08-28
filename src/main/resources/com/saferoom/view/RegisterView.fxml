@@ -24,7 +24,7 @@
                 <VBox alignment="CENTER" spacing="10.0" maxWidth="450">
                     <children>
                         <!-- DEĞİŞİKLİK: SVGPath, PNG gösteren bir ImageView ile değiştirildi -->
-                        <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../assets/logo.png" />
                             </image>
