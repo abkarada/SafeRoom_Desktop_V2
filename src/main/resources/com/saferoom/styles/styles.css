@@ -2,7 +2,7 @@
    1. GENEL STİLLER VE KAYDIRMA ÇUBUĞU
    ================================================================= */
 .main-pane {
-    -fx-background-color: #1e2b3b; /* slate-800 */
+    -fx-background-color: #1e293b; /* slate-800 */
 }
 .page-container {
     -fx-padding: 32px;
@@ -29,7 +29,7 @@
     -fx-background-color: #60a5fa; /* Açık Mavi */
 }
 .scroll-bar .track {
-    -fx-background-color: #1e2b3b; /* Ana içerik arkaplanı */
+    -fx-background-color: #1e293b; /* Ana içerik arkaplanı */
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
 }
@@ -124,7 +124,6 @@
 .sidebar-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white; }
 .sidebar-nav { -fx-padding: 16px; -fx-spacing: 8px; }
 
-/* --- GÜNCELLENDİ: Nav-button temel hali --- */
 .nav-button {
     -fx-background-color: transparent;
     -fx-text-fill: #a0a0a0;
@@ -138,18 +137,14 @@
 }
 .nav-icon { -fx-icon-size: 18px; -fx-icon-color: #94a3b8; }
 
-/* --- GÜNCELLENDİ: Hover ve Active efekti (Gradient Çizgi) --- */
 .nav-button:hover, .nav-button.active {
     -fx-text-fill: white;
     -fx-background-color:
-        /* Katman 1: Gradient Çizgi */
             linear-gradient(to bottom, #3b82f6, #a855f7),
-                /* Katman 2: Yarı saydam arkaplan */
             linear-gradient(to right, rgba(59, 130, 246, 0.4),
             rgba(168, 85, 247, 0.4));
-
-    -fx-background-insets: 0, 0 0 0 3px; /* 2. arkaplan soldan 3px içeriden başlar */
-    -fx-background-radius: 0 12px 12px 0, 0 12px 12px 0; /* İki katman da aynı şekle sahip */
+    -fx-background-insets: 0, 0 0 0 3px;
+    -fx-background-radius: 0 12px 12px 0, 0 12px 12px 0;
 }
 .nav-button:hover .nav-icon, .nav-button.active .nav-icon { -fx-icon-color: white; }
 
@@ -164,15 +159,15 @@
     -fx-background-color: #334155;
     -fx-text-fill: white;
     -fx-prompt-text-fill: #64748b;
-    -fx-background-radius: 20px; /* Kenarları biraz daha yuvarlak yapar */
+    -fx-background-radius: 20px;
     -fx-border-color: transparent;
     -fx-border-radius: 20px;
-    -fx-padding: 5px 10px;      /* <-- İç boşluğu artırarak daha dolgun yapar */
-    -fx-font-size: 14px;         /* <-- Yazı boyutunu büyütür */
-    -fx-max-width: 680px;        /* <-- Maksimum genişliğini sınırlar */
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+    -fx-max-width: 680px;
 }
 .search-field:focused {
-    -fx-border-color: #22d3ee;/* Tıklanınca turkuaz renkli çerçeve */
+    -fx-border-color: #22d3ee;
 }
 .icon-button { -fx-background-color: transparent; -fx-cursor: hand; }
 .header-icon { -fx-icon-size: 20px; -fx-icon-color: #94a3b8; }
@@ -389,7 +384,7 @@
 }
 .camera-disabled-icon {
     -fx-icon-color: #94a3b8;
-    -fx-icon-size: 48px;
+    -fx-icon-size: 100px;
 }
 .settings-card {
     -fx-background-color: #0f172a;
@@ -445,30 +440,49 @@
 .settings-combo-box {
     -fx-background-color: #1e2b3b;
     -fx-border-color: #475569;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-text-fill: white;
     -jfx-focus-color: transparent;
     -jfx-unfocus-color: transparent;
 }
-.jfx-combo-box-popup .list-view {
+
+.settings-combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+
+.settings-combo-box .arrow {
+    -fx-background-color: white;
+    -fx-padding: 3px;
+    -fx-shape: "M 0 0 L 4 4 L 8 0 Z";
+}
+
+
+.settings-combo-box .list-view {
     -fx-background-color: #1e2b3b;
-    -fx-background-radius: 8px;
-    -fx-padding: 5px;
+    -fx-background-radius: 10px;
+    -fx-padding: 15px;
     -fx-border-color: #475569;
     -fx-border-radius: 8px;
 }
-.jfx-combo-box-popup .list-cell {
+
+
+.settings-combo-box .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-padding: 10px;
-    -fx-background-radius: 6px;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 8px;
 }
-.jfx-combo-box-popup .list-cell:hover {
+
+
+.settings-combo-box .list-cell:hover {
     -fx-background-color: #334155;
 }
-.jfx-combo-box-popup .list-cell:selected {
-    -fx-background-color: #2563eb;
+
+
+.settings-combo-box .list-cell:selected {
+    -fx-background-color: linear-gradient(to right, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.4));
 }
 .mic-test-bar {
     -fx-pref-height: 8px;
@@ -485,28 +499,32 @@
 }
 .hub-item {
     -fx-padding: 15px;
-    -fx-border-color: #475569;
+    -fx-border-color: #475569; /* Muted Gray */
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
-    -fx-background-color: #1e2b3b;
+    -fx-background-color: #1e2b3b; /* Slate-800 */
     -fx-background-radius: 5px;
     -fx-cursor: hand;
 }
+
 .hub-item:hover {
-    -fx-background-color: #334155;
-    -fx-border-color: #60a5fa;
+    -fx-background-color: #334155; /* Slate-700 */
+    -fx-border-color: #60a5fa; /* Light Blue */
 }
+
 .hub-icon {
     -fx-font-size: 24px;
-    -fx-text-fill: #94a3b8;
+    -fx-text-fill: #94a3b8; /* Light Gray */
 }
+
 .hub-name {
     -fx-font-size: 18px;
-    -fx-text-fill: #e2e8f0;
+    -fx-text-fill: #e2e8f0; /* Light Text */
 }
+
 .hub-members {
     -fx-font-size: 14px;
-    -fx-text-fill: #94a3b8;
+    -fx-text-fill: #94a3b8; /* Light Gray */
 }
 .search-container {
     -fx-alignment: center-left;
@@ -535,6 +553,9 @@
 /* =================================================================
    11. MEETING PANEL
    ================================================================= */
+.meeting-container {
+    -fx-background-color: #0f172a;
+}
 .meeting-top-bar {
     -fx-background-color: #1e2b3b;
     -fx-border-color: #334155;
