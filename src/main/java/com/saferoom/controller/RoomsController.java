@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -112,8 +114,31 @@ public class RoomsController implements Initializable {
         if (roomNameLabel != null) {
             String roomName = roomNameLabel.getText();
             System.out.println("Navigating to room: " + roomName);
-            // Add navigation logic here
+            
+            // Navigate to ServerView
+            if (MainController.getInstance() != null) {
+                MainController.getInstance().loadServerView(roomName, getRoomIcon(roomCard));
+            } else {
+                System.err.println("MainController instance is null. Cannot load ServerView.");
+            }
         }
+    }
+    
+    private String getRoomIcon(VBox roomCard) {
+        // Extract the icon from the room card to pass to the server view
+        // Look for FontIcon in the room avatar
+        for (Node node : roomCard.getChildren()) {
+            if (node instanceof StackPane && node.getStyleClass().contains("room-avatar-large")) {
+                StackPane avatar = (StackPane) node;
+                for (Node avatarChild : avatar.getChildren()) {
+                    if (avatarChild instanceof FontIcon) {
+                        FontIcon icon = (FontIcon) avatarChild;
+                        return icon.getIconLiteral();
+                    }
+                }
+            }
+        }
+        return "fas-shield-alt"; // Default icon
     }
     
     private void setupCompactActionButtons(VBox roomCard) {

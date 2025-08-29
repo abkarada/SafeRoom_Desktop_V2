@@ -51,10 +51,11 @@ public class LoginController {
             Stage loginStage = (Stage) rootPane.getScene().getWindow();
             loginStage.close();
             Stage mainStage = new Stage();
-            mainStage.initStyle(StageStyle.UNDECORATED);
+            mainStage.initStyle(StageStyle.TRANSPARENT);
             mainStage.setTitle("SafeRoom");
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/MainView.fxml")));
             Scene mainScene = new Scene(mainRoot, 1280, 800);
+            mainScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             String cssPath = "/com/saferoom/styles/styles.css";
             URL cssUrl = getClass().getResource(cssPath);
             if (cssUrl != null) {

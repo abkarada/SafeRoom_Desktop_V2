@@ -87,13 +87,17 @@ public class ChatViewController {
         chatPartnerStatus.setText(status);
         chatPartnerAvatar.setText(avatarChar);
 
-        chatPartnerStatus.getStyleClass().removeAll("status-online", "status-offline");
+        // Remove all existing status classes
+        chatPartnerStatus.getStyleClass().removeAll("status-online", "status-offline", "status-idle", "status-dnd", "status-busy");
 
-        // ==========================================================
-        // DEĞİŞİKLİK BURADA: Birebir eşitlik yerine "içeriyor mu" kontrolü yapılıyor.
-        // ==========================================================
-        if (status.toLowerCase().contains("online")) {
+        // Apply appropriate status class based on status text
+        String statusLower = status.toLowerCase();
+        if (statusLower.contains("online")) {
             chatPartnerStatus.getStyleClass().add("status-online");
+        } else if (statusLower.contains("idle") || statusLower.contains("away")) {
+            chatPartnerStatus.getStyleClass().add("status-idle");
+        } else if (statusLower.contains("busy") || statusLower.contains("dnd") || statusLower.contains("do not disturb")) {
+            chatPartnerStatus.getStyleClass().add("status-dnd");
         } else {
             chatPartnerStatus.getStyleClass().add("status-offline");
         }

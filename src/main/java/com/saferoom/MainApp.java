@@ -20,10 +20,11 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainApp.class.getResource("/com/saferoom/view/LoginView.fxml")));
 
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("SafeRoom - Login");
 
         Scene scene = new Scene(root);
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
         // DEĞİŞİKLİK: CSS dosyasının adı, projenizdeki 'styles.css' ile eşleşmesi için güncellendi.
         String cssPath = "/com/saferoom/styles/styles.css";

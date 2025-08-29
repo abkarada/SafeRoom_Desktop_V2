@@ -131,12 +131,11 @@ public class MainController {
                     if (userMenu.isShowing()) {
                         userMenu.hide();
                     } else {
-                        // Position menu to the left of avatar to prevent overflow
-                        double menuWidth = 220; // Our preferred menu width
-                        double offsetX = -menuWidth + profileBox.getWidth() + 10;
-                        double offsetY = 8;
+                        // Position menu to the right side of the profile, inside the app
+                        double offsetX = 8; // Small gap from profile
+                        double offsetY = -200; // Move up so menu doesn't go below window
                         
-                        userMenu.show(profileBox, Side.BOTTOM, offsetX, offsetY);
+                        userMenu.show(profileBox, Side.RIGHT, offsetX, offsetY);
                     }
                 }
             });
@@ -164,10 +163,9 @@ public class MainController {
             buildUserContextMenu();
             if (reopenUser && profileBox != null) {
                 // Use the same positioning logic as the main menu
-                double menuWidth = 220; // Our fixed menu width
-                double offsetX = -menuWidth + profileBox.getWidth() + 10;
-                double offsetY = 8;
-                userMenu.show(profileBox, Side.BOTTOM, offsetX, offsetY);
+                double offsetX = 8; // Small gap from profile
+                double offsetY = -200; // Move up so menu doesn't go below window
+                userMenu.show(profileBox, Side.RIGHT, offsetX, offsetY);
                 // restore sheet view
                 userMenu.getItems().setAll(showingStatusSheet ? statusMenuItems : mainMenuItems);
             }
@@ -279,7 +277,7 @@ public class MainController {
         return new CustomMenuItem(row, false);
     }
 
-    private void handleSettings() { 
+    public void handleSettings() { 
         clearActiveButton(); 
         loadView("SettingsView.fxml"); 
     }
@@ -492,6 +490,24 @@ public class MainController {
 
     public void loadJoinMeetView() {
         loadFullScreenView("JoinMeetView.fxml", false);
+    }
+
+    public void loadServerView(String serverName, String serverIcon) {
+        setActiveButton(roomsButton);
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/ServerView.fxml"));
+            Parent root = loader.load();
+            
+            // Get the controller and set server info
+            ServerController controller = loader.getController();
+            controller.enterServer(serverName, serverIcon);
+            controller.setMainController(this); // Pass reference to maintain window controls
+            
+            contentArea.getChildren().setAll(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorInContentArea("ServerView.fxml yüklenemedi.");
+        }
     }
 
     private void loadFullScreenView(String fxmlFile, boolean isSecureRoom) {

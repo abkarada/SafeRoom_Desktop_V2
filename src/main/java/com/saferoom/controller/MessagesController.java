@@ -30,6 +30,9 @@ public class MessagesController {
         ObservableList<Contact> contacts = FXCollections.observableArrayList(
                 new Contact("zeynep_kaya", "Zeynep Kaya", "Online", "Harika, teşekkürler!", "5m", 2, false),
                 new Contact("ahmet_celik", "Ahmet Çelik", "Offline", "Raporu yarın sabah gönderirim.", "1d", 0, false),
+                new Contact("sarah_idle", "Sarah Johnson", "Idle", "I'll be back in 10 minutes", "15m", 0, false),
+                new Contact("mike_busy", "Mike Davis", "Busy", "In a meeting right now", "30m", 1, false),
+                new Contact("lisa_dnd", "Lisa Chen", "Do Not Disturb", "Working on important project", "1h", 0, false),
                 new Contact("meeting_phoenix", "Proje Phoenix Grubu", "3 Online", "Toplantı 15:00'te.", "2h", 5, true)
         );
         contactListView.setItems(contacts);
