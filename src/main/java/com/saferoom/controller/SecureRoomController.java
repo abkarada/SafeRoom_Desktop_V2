@@ -74,7 +74,7 @@ public class SecureRoomController {
                 MeetingPanelController meetingController = meetingLoader.getController();
 
                 // =========================================================================
-                // DEĞİŞİKLİK BURADA: Oda ID'si boş ise rastgele bir ID oluşturuyoruz.
+                // DEGISIKLIK BURADA: Oda ID'si bos ise rastgele bir ID olusturuyoruz.
                 // =========================================================================
                 String roomId = roomIdField.getText();
                 if (roomId == null || roomId.trim().isEmpty()) {

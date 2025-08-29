@@ -115,7 +115,7 @@ public class LoginController {
     }
 
     // ... (Diğer metodlar değişmedi) ...
-    private void handleForgotPassword() { showAlert("Şifre Kurtarma", "Bu özellik yakında eklenecektir."); }
+    private void handleForgotPassword() { showAlert("Sifre Kurtarma", "Bu ozellik yakinda eklenecektir."); }
     private void handleGoogleLogin() { showAlert("Google ile Giriş", "Bu özellik yakında eklenecektir."); }
     private void handleGitHubLogin() { showAlert("GitHub ile Giriş", "Bu özellik yakında eklenecektir."); }
     private void showAlert(String title, String content) { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setTitle(title); alert.setHeaderText(null); alert.setContentText(content); alert.showAndWait(); }

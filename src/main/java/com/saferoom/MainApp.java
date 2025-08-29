@@ -27,7 +27,7 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
 
-        // DEĞİŞİKLİK: CSS dosyasının adı, projenizdeki 'styles.css' ile eşleşmesi için güncellendi.
+        // DEGISIKLIK: CSS dosyasinin adi, projenizdeki 'styles.css' ile eslesmesi icin guncellendi.
         String cssPath = "/com/saferoom/styles/styles.css";
         URL cssUrl = MainApp.class.getResource(cssPath);
 

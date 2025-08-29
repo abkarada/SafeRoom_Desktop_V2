@@ -64,7 +64,7 @@ public class JoinMeetController {
         if (micAnimation != null) micAnimation.stop();
 
         // =========================================================================
-        // DEĞİŞİKLİK BURADA: Oda ID'sinin boş olup olmadığını kontrol ediyoruz.
+        // DEGISIKLIK BURADA: Oda ID'sinin bos olup olmadigini kontrol ediyoruz.
         // =========================================================================
         String roomId = roomIdField.getText();
         if (roomId == null || roomId.trim().isEmpty()) {
