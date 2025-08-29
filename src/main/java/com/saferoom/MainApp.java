@@ -20,7 +20,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainApp.class.getResource("/com/saferoom/view/LoginView.fxml")));
 
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        // Use UNDECORATED for better cross-platform compatibility
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("SafeRoom - Login");
 
         Scene scene = new Scene(root);

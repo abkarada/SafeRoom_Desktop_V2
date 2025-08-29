@@ -69,10 +69,9 @@
   -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.1), 30, 0, 0, 0);
 }
 .logo-icon {
+  -fx-fill: #22d3ee;
   -fx-stroke: #22d3ee;
   -fx-stroke-width: 0.5;
-  -fx-scale-x: 4;
-  -fx-scale-y: 4;
 }
 .title-label {
   -fx-font-family: "System Bold";
@@ -227,6 +226,13 @@
   -fx-icon-color: #94a3b8;
 }
 
+/* SVG icon styling for navigation buttons */
+.nav-icon-svg {
+  -fx-fill: #94a3b8;
+  -fx-stroke: #94a3b8;
+  -fx-stroke-width: 0.5;
+}
+
 /* --- GÜNCELLENDİ: Hover ve Active efekti (Gradient Çizgi) --- */
 .nav-button:hover,
 .nav-button.active {
@@ -250,6 +256,13 @@
 .nav-button:hover .nav-icon,
 .nav-button.active .nav-icon {
   -fx-icon-color: white;
+}
+
+/* SVG icon hover and active states */
+.nav-button:hover .nav-icon-svg,
+.nav-button.active .nav-icon-svg {
+  -fx-fill: white;
+  -fx-stroke: white;
 }
 
 .sidebar-footer {

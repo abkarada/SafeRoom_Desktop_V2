@@ -51,7 +51,8 @@ public class LoginController {
             Stage loginStage = (Stage) rootPane.getScene().getWindow();
             loginStage.close();
             Stage mainStage = new Stage();
-            mainStage.initStyle(StageStyle.TRANSPARENT);
+            // Use UNDECORATED for better cross-platform compatibility
+            mainStage.initStyle(StageStyle.UNDECORATED);
             mainStage.setTitle("SafeRoom");
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/MainView.fxml")));
             Scene mainScene = new Scene(mainRoot, 1280, 800);

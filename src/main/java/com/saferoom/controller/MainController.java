@@ -453,17 +453,58 @@ public class MainController {
 
     private void handleMaximize() {
         Stage stage = (Stage) mainPane.getScene().getWindow();
-        if (stage.isMaximized()) {
-            stage.setMaximized(false);
-            // Change icon to maximize
-            if (maximizeButton != null && maximizeButton.getGraphic() instanceof FontIcon) {
-                ((FontIcon) maximizeButton.getGraphic()).setIconLiteral("far-square");
+        
+        // Cross-platform maximize handling
+        String osName = System.getProperty("os.name").toLowerCase();
+        boolean isMacOS = osName.contains("mac");
+        
+        try {
+            if (isMacOS) {
+                // On macOS, try both fullscreen and maximize for better compatibility
+                if (stage.isFullScreen() || stage.isMaximized()) {
+                    stage.setFullScreen(false);
+                    stage.setMaximized(false);
+                    // Change icon to maximize
+                    if (maximizeButton != null && maximizeButton.getGraphic() instanceof FontIcon) {
+                        ((FontIcon) maximizeButton.getGraphic()).setIconLiteral("far-square");
+                    }
+                } else {
+                    // Try maximize first, fallback to fullscreen if needed
+                    stage.setMaximized(true);
+                    
+                    // If maximize didn't work (common on macOS), try fullscreen
+                    if (!stage.isMaximized()) {
+                        stage.setFullScreen(true);
+                    }
+                    
+                    // Change icon to restore down
+                    if (maximizeButton != null && maximizeButton.getGraphic() instanceof FontIcon) {
+                        ((FontIcon) maximizeButton.getGraphic()).setIconLiteral("far-clone");
+                    }
+                }
+            } else {
+                // On Windows/Linux, use standard maximize
+                if (stage.isMaximized()) {
+                    stage.setMaximized(false);
+                    // Change icon to maximize
+                    if (maximizeButton != null && maximizeButton.getGraphic() instanceof FontIcon) {
+                        ((FontIcon) maximizeButton.getGraphic()).setIconLiteral("far-square");
+                    }
+                } else {
+                    stage.setMaximized(true);
+                    // Change icon to restore down
+                    if (maximizeButton != null && maximizeButton.getGraphic() instanceof FontIcon) {
+                        ((FontIcon) maximizeButton.getGraphic()).setIconLiteral("far-clone");
+                    }
+                }
             }
-        } else {
-            stage.setMaximized(true);
-            // Change icon to restore down
-            if (maximizeButton != null && maximizeButton.getGraphic() instanceof FontIcon) {
-                ((FontIcon) maximizeButton.getGraphic()).setIconLiteral("far-clone");
+        } catch (Exception e) {
+            System.err.println("Error handling maximize on " + osName + ": " + e.getMessage());
+            // Fallback: try basic maximize
+            try {
+                stage.setMaximized(!stage.isMaximized());
+            } catch (Exception fallbackError) {
+                System.err.println("Fallback maximize also failed: " + fallbackError.getMessage());
             }
         }
     }
