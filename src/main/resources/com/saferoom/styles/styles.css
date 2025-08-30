@@ -1727,7 +1727,7 @@
 }
 
 .user-menu-item:hover {
-  -fx-background-color: #334155;
+  -fx-background-color: transparent;
 }
 
 /* Menu item text */

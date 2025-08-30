@@ -22,13 +22,7 @@
         <VBox styleClass="sidebar, sidebar-minimal">
             <children>
                 <HBox alignment="CENTER" prefHeight="45.0" styleClass="sidebar-header-minimal">
-                    <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../assets/logo.jpg" />
-                            </image>
-                        </ImageView>
-                    </children>
+
                 </HBox>
 
                 <VBox fx:id="navBox" alignment="CENTER" spacing="16" VBox.vgrow="ALWAYS">
