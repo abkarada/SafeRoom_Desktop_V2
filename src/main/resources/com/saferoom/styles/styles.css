@@ -134,17 +134,11 @@
 .remember-checkbox .text {
   -fx-fill: #94a3b8;
 }
-.remember-checkbox .box {
-  -fx-background-color: transparent;
-  -fx-border-color: #475569;
-  -fx-border-radius: 4px;
+.remember-checkbox {
+  -jfx-checked-color: #22d3ee;
+  -jfx-unchecked-color: #475569;
 }
-.remember-checkbox:selected .box {
-  -fx-background-color: #22d3ee;
-}
-.remember-checkbox:selected .mark {
-  -fx-shape: "M3.7,7.3l2.9,2.9l5.7-5.7";
-}
+
 .divider-text {
   -fx-text-fill: #64748b;
   -fx-font-weight: bold;
