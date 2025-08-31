@@ -32,8 +32,6 @@
                                 </ImageView>
                             </children>
                         </StackPane>
-                        <Label styleClass="title-label" text="Create Account" />
-                        <Label styleClass="subtitle-label" text="Get started with your secure account" />
                     </children>
                 </VBox>
 
@@ -89,7 +87,7 @@
                         <FontIcon iconLiteral="fas-power-off" styleClass="close-icon"/>
                     </graphic>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Button>
             </children>

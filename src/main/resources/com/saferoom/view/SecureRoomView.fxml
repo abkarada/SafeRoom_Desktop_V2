@@ -33,7 +33,6 @@
                 <VBox>
                     <children>
                         <Label styleClass="title-label" text="Secure Room Initialization" />
-                        <Label styleClass="subtitle-label" text="Connection is end-to-end encrypted via QuantumGuard Protocol" />
                     </children>
                 </VBox>
             </children>

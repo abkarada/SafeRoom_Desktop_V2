@@ -76,7 +76,11 @@
 .title-label {
   -fx-font-family: "System Bold";
   -fx-font-size: 36px;
-  -fx-text-fill: white;
+  -fx-text-fill: linear-gradient(
+          to right,
+          #3b82f6,
+          #a855f7
+  );;
 }
 .subtitle-label {
   -fx-font-size: 14px;
@@ -769,7 +773,7 @@
 }
 .drop-zone-icon {
   -fx-icon-color: #94a3b8;
-  -fx-icon-size: 48px;
+  -fx-icon-size: 65px;
 }
 .drop-zone-title {
   -fx-font-size: 18px;

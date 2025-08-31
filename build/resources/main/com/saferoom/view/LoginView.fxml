@@ -34,8 +34,6 @@
                                 </ImageView>
                             </children>
                         </StackPane>
-                        <Label styleClass="title-label" text="Welcome Back" />
-                        <Label styleClass="subtitle-label" text="Sign in to continue to SafeRoom" />
                     </children>
                 </VBox>
 
@@ -100,7 +98,7 @@
                         <FontIcon iconLiteral="fas-power-off" styleClass="close-icon"/>
                     </graphic>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="40.0" />
                     </VBox.margin>
                 </Button>
             </children>
