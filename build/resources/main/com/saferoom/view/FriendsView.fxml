@@ -34,19 +34,19 @@
         <!-- Özet Kartlar -->
         <HBox spacing="20.0">
             <children>
-                <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" alignment="CENTER" minWidth="120">
                     <children>
                         <Label fx:id="totalFriendsLabel" styleClass="summary-card-title" text="0" />
                         <Label styleClass="summary-card-subtitle" text="Total Friends" />
                     </children>
                 </VBox>
-                <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" alignment="CENTER" minWidth="120">
                     <children>
                         <Label fx:id="onlineFriendsLabel" styleClass="summary-card-title" text="0" />
                         <Label styleClass="summary-card-subtitle" text="Online" />
                     </children>
                 </VBox>
-                <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" alignment="CENTER" minWidth="120">
                     <children>
                         <Label fx:id="pendingFriendsLabel" styleClass="summary-card-title" text="0" />
                         <Label styleClass="summary-card-subtitle" text="Pending" />

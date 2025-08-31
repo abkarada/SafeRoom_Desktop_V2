@@ -640,6 +640,9 @@
   -fx-padding: 20px;
   -fx-border-color: #334155;
   -fx-border-radius: 12px;
+  -fx-min-width: 120px;
+  -fx-pref-width: 120px;
+  -fx-alignment: center;
 }
 .summary-card-title {
   -fx-font-size: 28px;
@@ -708,6 +711,9 @@
   -fx-border-width: 0 0 0 4px;
   -fx-border-color: transparent;
   -fx-background-insets: 0 0 10px 0;
+}
+.friends-list-view .list-cell:filled:hover {
+  -fx-background-color: #1e2b3b;
 }
 .friends-list-view .list-cell {
   -fx-background-color: transparent;
@@ -893,16 +899,20 @@
   -fx-cursor: hand;
   -fx-graphic-text-gap: 8px;
   -fx-border-color: transparent;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
 }
 .close-icon {
   -fx-icon-color: #64748b;
   -fx-icon-size: 14px;
 }
 .close-button:hover {
-  -fx-text-fill: #ef4444;
+  -fx-background-color: #ef4444;
+  -fx-text-fill: white;
+  -fx-border-color: #ef4444;
 }
 .close-button:hover .close-icon {
-  -fx-icon-color: #ef4444;
+  -fx-icon-color: white;
 }
 
 /* =================================================================
