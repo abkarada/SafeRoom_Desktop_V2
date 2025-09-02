@@ -70,7 +70,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\SafeRoom_Desktop_V2-1.0.jar;%APP_HOME%\lib\javafx-fxml-17.0.10-win.jar;%APP_HOME%\lib\javafx-web-17.0.10-win.jar;%APP_HOME%\lib\javafx-controls-17.0.10-win.jar;%APP_HOME%\lib\javafx-media-17.0.10-win.jar;%APP_HOME%\lib\javafx-graphics-17.0.10-win.jar;%APP_HOME%\lib\ikonli-javafx-12.3.1.jar;%APP_HOME%\lib\ikonli-fontawesome5-pack-12.3.1.jar;%APP_HOME%\lib\jfoenix-9.0.10.jar;%APP_HOME%\lib\javafx-base-17.0.10-win.jar;%APP_HOME%\lib\ikonli-core-12.3.1.jar
+set CLASSPATH=%APP_HOME%\lib\SafeRoom_Desktop_V2-1.0.jar;%APP_HOME%\lib\javafx-fxml-17.0.10-mac-aarch64.jar;%APP_HOME%\lib\javafx-web-17.0.10-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-17.0.10-mac-aarch64.jar;%APP_HOME%\lib\javafx-media-17.0.10-mac-aarch64.jar;%APP_HOME%\lib\javafx-graphics-17.0.10-mac-aarch64.jar;%APP_HOME%\lib\ikonli-javafx-12.3.1.jar;%APP_HOME%\lib\ikonli-fontawesome5-pack-12.3.1.jar;%APP_HOME%\lib\jfoenix-9.0.10.jar;%APP_HOME%\lib\javafx-base-17.0.10-mac-aarch64.jar;%APP_HOME%\lib\ikonli-core-12.3.1.jar
 
 
 @rem Execute SafeRoom_Desktop_V2

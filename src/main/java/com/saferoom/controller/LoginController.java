@@ -115,7 +115,39 @@ public class LoginController {
     }
 
     // ... (Diğer metodlar değişmedi) ...
-    private void handleForgotPassword() { showAlert("Sifre Kurtarma", "Bu ozellik yakinda eklenecektir."); }
+    private void handleForgotPassword() {
+        System.out.println("Navigating to forgot password screen...");
+        try {
+            Stage currentStage = (Stage) rootPane.getScene().getWindow();
+            currentStage.close();
+
+            Stage forgotPasswordStage = new Stage();
+            forgotPasswordStage.initStyle(StageStyle.UNDECORATED);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/ForgotPasswordView.fxml")));
+
+            root.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                forgotPasswordStage.setX(event.getScreenX() - xOffset);
+                forgotPasswordStage.setY(event.getScreenY() - yOffset);
+            });
+
+            Scene scene = new Scene(root);
+            String cssPath = "/com/saferoom/styles/styles.css";
+            URL cssUrl = getClass().getResource(cssPath);
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            }
+            forgotPasswordStage.setScene(scene);
+            forgotPasswordStage.setResizable(false);
+            forgotPasswordStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Failed to load forgot password screen.");
+        }
+    }
     private void handleGoogleLogin() { showAlert("Google ile Giriş", "Bu özellik yakında eklenecektir."); }
     private void handleGitHubLogin() { showAlert("GitHub ile Giriş", "Bu özellik yakında eklenecektir."); }
     private void showAlert(String title, String content) { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setTitle(title); alert.setHeaderText(null); alert.setContentText(content); alert.showAndWait(); }
