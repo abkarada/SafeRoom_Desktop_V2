@@ -9,8 +9,7 @@ import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import com.saferoom.utils.AlertUtils;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
@@ -214,7 +213,7 @@ public class MainController {
 
         // Other actions
         CustomMenuItem settingsItem = actionRow("Settings", "fas-cog", this::handleSettings);
-        CustomMenuItem helpItem = actionRow("Help", "far-question-circle", () -> new Alert(AlertType.INFORMATION, "Help is coming soon.").showAndWait());
+        CustomMenuItem helpItem = actionRow("Help", "far-question-circle", () -> AlertUtils.showInfo("Help", "Help is coming soon."));
 
         mainMenuItems.add(headerItem);
         mainMenuItems.add(new SeparatorMenuItem());

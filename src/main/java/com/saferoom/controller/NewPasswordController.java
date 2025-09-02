@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import com.saferoom.utils.AlertUtils;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -197,11 +197,7 @@ public class NewPasswordController {
         System.out.println("New password: " + newPassword + " (for testing)");
         
         // Show success message and navigate to login
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText("Password Reset Successful");
-        alert.setContentText("Your password has been reset successfully. You can now login with your new password.");
-        alert.showAndWait();
+        AlertUtils.showSuccess("Success", "Your password has been reset successfully. You can now login with your new password.");
         
         handleBackToLogin();
     }
@@ -244,10 +240,6 @@ public class NewPasswordController {
     }
 
     private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        AlertUtils.showError("Error", message);
     }
 }

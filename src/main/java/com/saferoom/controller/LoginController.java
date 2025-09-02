@@ -1,6 +1,7 @@
 package com.saferoom.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.saferoom.utils.AlertUtils;
 import javafx.application.Platform; // Kapatma işlevi için import edildi
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -150,6 +151,6 @@ public class LoginController {
     }
     private void handleGoogleLogin() { showAlert("Google ile Giriş", "Bu özellik yakında eklenecektir."); }
     private void handleGitHubLogin() { showAlert("GitHub ile Giriş", "Bu özellik yakında eklenecektir."); }
-    private void showAlert(String title, String content) { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setTitle(title); alert.setHeaderText(null); alert.setContentText(content); alert.showAndWait(); }
-    private void showError(String message) { Alert alert = new Alert(Alert.AlertType.ERROR); alert.setTitle("Hata"); alert.setHeaderText(null); alert.setContentText(message); alert.showAndWait(); }
+    private void showAlert(String title, String content) { AlertUtils.showInfo(title, content); }
+    private void showError(String message) { AlertUtils.showError("Hata", message); }
 }

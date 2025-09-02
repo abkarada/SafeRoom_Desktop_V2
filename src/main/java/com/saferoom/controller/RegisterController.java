@@ -1,6 +1,7 @@
 package com.saferoom.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.saferoom.utils.AlertUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,10 +125,6 @@ public class RegisterController {
     }
 
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        AlertUtils.showInfo(title, content);
     }
 }
