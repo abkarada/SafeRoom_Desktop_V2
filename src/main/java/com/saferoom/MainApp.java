@@ -20,12 +20,14 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(MainApp.class.getResource("/com/saferoom/view/LoginView.fxml")));
 
-        // Use UNDECORATED for better cross-platform compatibility
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        // Use TRANSPARENT for better cross-platform compatibility and to remove white corners
         primaryStage.setTitle("SafeRoom - Login");
 
         Scene scene = new Scene(root);
         scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+        
+        // Stage'i de transparent yap (beyaz köşeleri önlemek için)
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         // DEGISIKLIK: CSS dosyasinin adi, projenizdeki 'styles.css' ile eslesmesi icin guncellendi.
         String cssPath = "/com/saferoom/styles/styles.css";

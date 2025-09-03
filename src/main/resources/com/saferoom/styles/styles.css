@@ -65,7 +65,6 @@
   -fx-background-color: rgba(15, 23, 42, 0.5);
   -fx-background-radius: 20px;
   -fx-border-radius: 20px;
-  -fx-border-color: rgba(59, 130, 246, 0.2);
   -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.1), 30, 0, 0, 0);
 }
 .logo-icon {

@@ -53,7 +53,7 @@ public class RegisterController {
 
             // Yeni bir doğrulama penceresi aç
             Stage verifyStage = new Stage();
-            verifyStage.initStyle(StageStyle.UNDECORATED);
+            verifyStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/VerifyEmailView.fxml")));
 
             // Sürükleme özelliği
@@ -96,7 +96,7 @@ public class RegisterController {
             Stage currentStage = (Stage) rootPane.getScene().getWindow();
             currentStage.close();
             Stage loginStage = new Stage();
-            loginStage.initStyle(StageStyle.UNDECORATED);
+            loginStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/LoginView.fxml")));
             root.setOnMousePressed(event -> {
                 xOffset = event.getSceneX();
@@ -107,6 +107,7 @@ public class RegisterController {
                 loginStage.setY(event.getScreenY() - yOffset);
             });
             Scene scene = new Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             String cssPath = "/com/saferoom/styles/styles.css";
             URL cssUrl = getClass().getResource(cssPath);
             if (cssUrl != null) {

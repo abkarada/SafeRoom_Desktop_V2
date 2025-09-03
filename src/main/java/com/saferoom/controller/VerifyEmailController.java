@@ -138,7 +138,7 @@ public class VerifyEmailController {
             currentStage.close();
 
             Stage loginStage = new Stage();
-            loginStage.initStyle(StageStyle.UNDECORATED);
+            loginStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/LoginView.fxml")));
 
             root.setOnMousePressed(event -> {
@@ -151,6 +151,7 @@ public class VerifyEmailController {
             });
 
             Scene scene = new Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             String cssPath = "/com/saferoom/styles/styles.css";
             URL cssUrl = getClass().getResource(cssPath);
             if (cssUrl != null) {

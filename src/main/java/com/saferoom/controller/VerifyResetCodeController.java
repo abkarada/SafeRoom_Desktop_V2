@@ -210,7 +210,7 @@ public class VerifyResetCodeController {
         controller.setEmail(userEmail);
 
         Stage newPasswordStage = new Stage();
-        newPasswordStage.initStyle(StageStyle.UNDECORATED);
+        newPasswordStage.initStyle(StageStyle.TRANSPARENT);
         
         // Setup window dragging
         root.setOnMousePressed(event -> {
@@ -223,6 +223,7 @@ public class VerifyResetCodeController {
         });
 
         Scene scene = new Scene(root);
+        scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
         String cssPath = "/com/saferoom/styles/styles.css";
         URL cssUrl = getClass().getResource(cssPath);
         if (cssUrl != null) {
@@ -264,7 +265,7 @@ public class VerifyResetCodeController {
             currentStage.close();
 
             Stage forgotPasswordStage = new Stage();
-            forgotPasswordStage.initStyle(StageStyle.UNDECORATED);
+            forgotPasswordStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/ForgotPasswordView.fxml")));
 
             // Setup window dragging
@@ -278,6 +279,7 @@ public class VerifyResetCodeController {
             });
 
             Scene scene = new Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             String cssPath = "/com/saferoom/styles/styles.css";
             URL cssUrl = getClass().getResource(cssPath);
             if (cssUrl != null) {

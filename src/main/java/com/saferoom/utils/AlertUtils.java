@@ -84,7 +84,7 @@ public class AlertUtils {
     private static void showCustomAlert(String title, String message, AlertType alertType) {
         Stage alertStage = new Stage();
         alertStage.initModality(Modality.APPLICATION_MODAL);
-        alertStage.initStyle(StageStyle.UNDECORATED);
+        alertStage.initStyle(StageStyle.TRANSPARENT);
         alertStage.setResizable(false);
 
         // Main container

@@ -52,8 +52,8 @@ public class LoginController {
             Stage loginStage = (Stage) rootPane.getScene().getWindow();
             loginStage.close();
             Stage mainStage = new Stage();
-            // Use UNDECORATED for better cross-platform compatibility
-            mainStage.initStyle(StageStyle.UNDECORATED);
+            // Use TRANSPARENT for better cross-platform compatibility and to remove white corners
+            mainStage.initStyle(StageStyle.TRANSPARENT);
             mainStage.setTitle("SafeRoom");
             Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/MainView.fxml")));
             Scene mainScene = new Scene(mainRoot, 1280, 800);
@@ -81,7 +81,7 @@ public class LoginController {
             currentStage.close();
 
             Stage registerStage = new Stage();
-            registerStage.initStyle(StageStyle.UNDECORATED);
+            registerStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/RegisterView.fxml")));
 
             root.setOnMousePressed(event -> {
@@ -94,6 +94,7 @@ public class LoginController {
             });
 
             Scene scene = new Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             String cssPath = "/com/saferoom/styles/styles.css";
             URL cssUrl = getClass().getResource(cssPath);
             if (cssUrl != null) {
@@ -123,7 +124,7 @@ public class LoginController {
             currentStage.close();
 
             Stage forgotPasswordStage = new Stage();
-            forgotPasswordStage.initStyle(StageStyle.UNDECORATED);
+            forgotPasswordStage.initStyle(StageStyle.TRANSPARENT);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/saferoom/view/ForgotPasswordView.fxml")));
 
             root.setOnMousePressed(event -> {
@@ -136,6 +137,7 @@ public class LoginController {
             });
 
             Scene scene = new Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
             String cssPath = "/com/saferoom/styles/styles.css";
             URL cssUrl = getClass().getResource(cssPath);
             if (cssUrl != null) {

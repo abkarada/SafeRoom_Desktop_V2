@@ -106,9 +106,11 @@ public class MainController {
         mainPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene != null && newScene.getWindow() instanceof Stage) {
                 Stage stage = (Stage) newScene.getWindow();
-                // Pencere tamamen yüklendikten sonra konum geri yükle
+                // Pencere tamamen yüklendikten sonra konum geri yükle ve transparent yap
                 javafx.application.Platform.runLater(() -> {
                     WindowStateManager.restoreWindowState(stage);
+                    // Tüm scene'leri transparent yap (beyaz köşeleri önlemek için)
+                    newScene.setFill(javafx.scene.paint.Color.TRANSPARENT);
                 });
             }
         });
@@ -137,6 +139,13 @@ public class MainController {
 
         // Başlangıçta Dashboard'u yükle
         handleDashboard();
+        
+        // Ana scene'i transparent yap
+        javafx.application.Platform.runLater(() -> {
+            if (mainPane.getScene() != null) {
+                mainPane.getScene().setFill(javafx.scene.paint.Color.TRANSPARENT);
+            }
+        });
     }
 
     public void setUserStatus(UserStatus status) {
@@ -342,7 +351,7 @@ public class MainController {
             
             // Open login window
             Stage loginStage = new Stage();
-            loginStage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+            loginStage.initStyle(javafx.stage.StageStyle.TRANSPARENT);
             loginStage.setTitle("SafeRoom - Login");
             
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader();
@@ -350,7 +359,7 @@ public class MainController {
             javafx.scene.Parent root = loader.load();
             
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
-            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT); // Transparency ekle
             
             // Add CSS styling
             String cssPath = "/com/saferoom/styles/styles.css";
