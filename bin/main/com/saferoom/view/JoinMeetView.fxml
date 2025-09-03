@@ -32,7 +32,6 @@
                 <VBox>
                     <children>
                         <Label styleClass="title-label" text="Join Secure Meet" />
-                        <Label styleClass="subtitle-label" text="Check your audio and video before joining." />
                     </children>
                 </VBox>
             </children>

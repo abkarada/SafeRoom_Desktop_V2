@@ -17,7 +17,6 @@
                 <FontIcon iconLiteral="fas-cloud-upload-alt" styleClass="drop-zone-icon" />
                 <Label styleClass="drop-zone-title" text="Drag &amp; drop files to encrypt" />
                 <Label styleClass="drop-zone-subtitle" text="or click to browse" />
-                <Label styleClass="drop-zone-info" text="All files are end-to-end encrypted with AES-256." />
             </children>
         </VBox>
 

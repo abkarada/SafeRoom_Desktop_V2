@@ -8,10 +8,11 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <StackPane alignment="CENTER" prefHeight="800.0" prefWidth="520.0" styleClass="login-background" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.saferoom.controller.RegisterController">
@@ -22,13 +23,15 @@
                 <!-- Logo ve Başlık -->
                 <VBox alignment="CENTER" spacing="10.0" maxWidth="450">
                     <children>
-                        <StackPane prefHeight="80.0" prefWidth="80.0">
+                        <StackPane maxWidth="60" maxHeight="60">
                             <children>
-                                <SVGPath content="M12 2L2 7V17L12 22L22 17V7L12 2Z M16.5 8C16.5 10 15 11 12 12C9 13 7.5 14 7.5 16" scaleX="1.8" scaleY="1.8" styleClass="logo-icon" />
+                                <ImageView fx:id="logoImage" fitWidth="200" fitHeight="200" preserveRatio="true" styleClass="logo-icon">
+                                    <image>
+                                        <Image url="@../assets/logogradientpng.png" />
+                                    </image>
+                                </ImageView>
                             </children>
                         </StackPane>
-                        <Label styleClass="title-label" text="Create Account" />
-                        <Label styleClass="subtitle-label" text="Get started with your secure account" />
                     </children>
                 </VBox>
 
@@ -38,6 +41,7 @@
                         <TextField fx:id="usernameField" promptText="Username" styleClass="input-field" />
                         <TextField fx:id="emailField" promptText="Email Address" styleClass="input-field" />
                         <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field" />
+                        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" styleClass="input-field" />
                     </children>
                 </VBox>
 
@@ -83,7 +87,7 @@
                         <FontIcon iconLiteral="fas-power-off" styleClass="close-icon"/>
                     </graphic>
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Button>
             </children>

@@ -130,11 +130,7 @@ public class MainController {
                     if (userMenu.isShowing()) {
                         userMenu.hide();
                     } else {
-                        // Position menu to the right side of the profile, inside the app
-                        double offsetX = 8; // Small gap from profile
-                        double offsetY = -200; // Move up so menu doesn't go below window
-                        
-                        userMenu.show(profileBox, Side.RIGHT, offsetX, offsetY);
+                        showUserMenuWithDynamicPosition();
                     }
                 }
             });
@@ -161,10 +157,7 @@ public class MainController {
             if (userMenu != null) userMenu.hide();
             buildUserContextMenu();
             if (reopenUser && profileBox != null) {
-                // Use the same positioning logic as the main menu
-                double offsetX = 8; // Small gap from profile
-                double offsetY = -200; // Move up so menu doesn't go below window
-                userMenu.show(profileBox, Side.RIGHT, offsetX, offsetY);
+                showUserMenuWithDynamicPosition();
                 // restore sheet view
                 userMenu.getItems().setAll(showingStatusSheet ? statusMenuItems : mainMenuItems);
             }
@@ -173,6 +166,64 @@ public class MainController {
     
     public UserStatus getUserStatus() {
         return currentStatus;
+    }
+
+    private void showUserMenuWithDynamicPosition() {
+        if (userMenu == null || profileBox == null) return;
+        
+        // Get the scene and window bounds
+        javafx.scene.Scene scene = profileBox.getScene();
+        if (scene == null) return;
+        
+        javafx.stage.Window window = scene.getWindow();
+        if (window == null) return;
+        
+        // Get the profile box bounds in scene coordinates
+        javafx.geometry.Bounds profileBounds = profileBox.localToScene(profileBox.getBoundsInLocal());
+        
+        // Calculate the estimated menu height based on current menu items
+        int currentMenuItemCount = userMenu.getItems().size();
+        if (currentMenuItemCount == 0) {
+            // If menu hasn't been populated yet, estimate based on main menu
+            currentMenuItemCount = 7; // header + separator + status + separator + settings + help + separator + logout
+        }
+        
+        double estimatedMenuHeight = currentMenuItemCount * 32 + 20; // ~32px per item + padding
+        
+        // Calculate position
+        double offsetX = 8; // Small gap from profile
+        double windowHeight = scene.getHeight();
+        double profileBottomY = profileBounds.getMaxY();
+        double profileTopY = profileBounds.getMinY();
+        
+        // Calculate optimal position
+        double offsetY;
+        double spaceBelow = windowHeight - profileBottomY;
+        double spaceAbove = profileTopY;
+        
+        if (estimatedMenuHeight <= spaceBelow - 10) {
+            // Enough space below the profile - position menu below
+            offsetY = profileBounds.getHeight() + 5;
+        } else if (estimatedMenuHeight <= spaceAbove - 10) {
+            // Not enough space below, but enough above - position menu above
+            offsetY = -estimatedMenuHeight - 5;
+        } else {
+            // Not enough space in either direction - position to fit within window
+            // Try to center the menu vertically around the profile, but keep it in bounds
+            double idealCenterY = profileBounds.getMinY() + (profileBounds.getHeight() / 2);
+            double menuTop = idealCenterY - (estimatedMenuHeight / 2);
+            
+            // Adjust if menu would go outside window bounds
+            if (menuTop < 10) {
+                menuTop = 10; // Keep 10px margin from top
+            } else if (menuTop + estimatedMenuHeight > windowHeight - 10) {
+                menuTop = windowHeight - estimatedMenuHeight - 10; // Keep 10px margin from bottom
+            }
+            
+            offsetY = menuTop - profileBounds.getMinY();
+        }
+        
+        userMenu.show(profileBox, Side.RIGHT, offsetX, offsetY);
     }
 
     private void buildUserContextMenu() {
@@ -214,6 +265,7 @@ public class MainController {
         // Other actions
         CustomMenuItem settingsItem = actionRow("Settings", "fas-cog", this::handleSettings);
         CustomMenuItem helpItem = actionRow("Help", "far-question-circle", () -> AlertUtils.showInfo("Help", "Help is coming soon."));
+        CustomMenuItem logoutItem = actionRow("Log out", "fas-sign-out-alt", this::handleLogout);
 
         mainMenuItems.add(headerItem);
         mainMenuItems.add(new SeparatorMenuItem());
@@ -221,6 +273,8 @@ public class MainController {
         mainMenuItems.add(new SeparatorMenuItem());
         mainMenuItems.add(settingsItem);
         mainMenuItems.add(helpItem);
+        mainMenuItems.add(new SeparatorMenuItem());
+        mainMenuItems.add(logoutItem);
         userMenu.getItems().setAll(mainMenuItems);
 
         // Build status sheet (with Back)
@@ -279,6 +333,53 @@ public class MainController {
     public void handleSettings() { 
         clearActiveButton(); 
         loadView("SettingsView.fxml"); 
+    }
+
+    public void handleLogout() {
+        try {
+            // Close current main window
+            Stage currentStage = (Stage) mainPane.getScene().getWindow();
+            currentStage.close();
+            
+            // Open login window
+            Stage loginStage = new Stage();
+            loginStage.initStyle(javafx.stage.StageStyle.UNDECORATED);
+            loginStage.setTitle("SafeRoom - Login");
+            
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader();
+            loader.setLocation(getClass().getResource("/com/saferoom/view/LoginView.fxml"));
+            javafx.scene.Parent root = loader.load();
+            
+            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            
+            // Add CSS styling
+            String cssPath = "/com/saferoom/styles/styles.css";
+            java.net.URL cssUrl = getClass().getResource(cssPath);
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            }
+            
+            // Enable window dragging
+            final double[] xOffset = {0};
+            final double[] yOffset = {0};
+            root.setOnMousePressed(event -> {
+                xOffset[0] = event.getSceneX();
+                yOffset[0] = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                loginStage.setX(event.getScreenX() - xOffset[0]);
+                loginStage.setY(event.getScreenY() - yOffset[0]);
+            });
+            
+            loginStage.setResizable(false);
+            loginStage.setScene(scene);
+            loginStage.show();
+            
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            AlertUtils.showError("Error", "Failed to logout. Please try again.");
+        }
     }
 
     // Window drag functionality for undecorated window
