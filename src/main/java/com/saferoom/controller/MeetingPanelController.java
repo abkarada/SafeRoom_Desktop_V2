@@ -8,6 +8,7 @@ import com.saferoom.controller.strategy.UserRoleStrategy;
 import com.saferoom.model.Meeting;
 import com.saferoom.model.Participant;
 import com.saferoom.model.UserRole;
+import com.saferoom.utils.WindowStateManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -61,6 +62,10 @@ public class MeetingPanelController {
     @FXML private JFXButton recordButton;
     @FXML private JFXButton leaveButton;
 
+    // Window state manager for dragging functionality
+    private WindowStateManager windowStateManager = new WindowStateManager();
+    private MainController mainController;
+
     // Sınıf Değişkenleri
     private Meeting currentMeeting;
     private Participant currentUser;
@@ -71,6 +76,9 @@ public class MeetingPanelController {
 
     @FXML
     public void initialize() {
+        // Pencere sürükleme işlevini etkinleştir
+        windowStateManager.setupBasicWindowDrag(centerContentAnchorPane);
+        
         contentRightAnchorProperty.addListener((obs, oldValue, newValue) -> {
             AnchorPane.setRightAnchor(contentStackPane, newValue.doubleValue());
             AnchorPane.setRightAnchor(rightPanelVBox, newValue.doubleValue() - rightPanelVBox.getPrefWidth());
@@ -112,6 +120,17 @@ public class MeetingPanelController {
         }
         updateMicButtonState();
         updateCameraButtonState();
+    }
+
+    /**
+     * Ana controller referansını ayarlar (geri dönüş için)
+     */
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+        // Meeting panel açıldığında da sidebar'ı gizle
+        if (mainController != null) {
+            mainController.hideSidebarForFullScreen();
+        }
     }
 
     private Node createParticipantListItem(Participant participant) {
@@ -405,14 +424,9 @@ public class MeetingPanelController {
 
     @FXML
     private void leaveMeeting() {
-        try {
-            Scene currentScene = leaveButton.getScene();
-            if (currentScene != null) {
-                Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(MainApp.class.getResource("view/MainView.fxml")));
-                currentScene.setRoot(mainRoot);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Ana pencereye geri dön (content değiştirme yaklaşımı)
+        if (mainController != null) {
+            mainController.returnToMainView();
         }
     }
 }

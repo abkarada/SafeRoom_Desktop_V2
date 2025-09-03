@@ -10,6 +10,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import com.saferoom.utils.AlertUtils;
+import com.saferoom.utils.WindowStateManager;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
@@ -35,7 +36,7 @@ public class MainController {
 
     // FXML Değişkenleri
     @FXML private BorderPane mainPane;
-    @FXML private StackPane contentArea;
+    @FXML public StackPane contentArea;
     @FXML private VBox navBox;
     @FXML private JFXButton dashboardButton;
     @FXML private JFXButton roomsButton;
@@ -78,21 +79,8 @@ public class MainController {
     private boolean showingStatusSheet = false;
     private final String currentUserName = "Username"; // Replace when user model is available
     
-    // Window drag variables
-    private double xOffset = 0;
-    private double yOffset = 0;
-    
-    // Window resize variables
-    private boolean isResizing = false;
-    private double resizeStartX = 0;
-    private double resizeStartY = 0;
-    private double resizeStartWidth = 0;
-    private double resizeStartHeight = 0;
-    private ResizeDirection resizeDirection = ResizeDirection.NONE;
-    
-    private enum ResizeDirection {
-        NONE, N, S, E, W, NE, NW, SE, SW
-    }
+    // Window state manager instance
+    private WindowStateManager windowStateManager = new WindowStateManager();
 
     @FXML
     public void initialize() {
@@ -112,7 +100,18 @@ public class MainController {
         closeButton.setOnAction(event -> handleClose());
 
         // Window drag functionality for undecorated window
-        setupWindowDrag();
+        windowStateManager.setupWindowDrag(mainPane);
+        
+        // Pencere konumunu geri yükle (varsa)
+        mainPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null && newScene.getWindow() instanceof Stage) {
+                Stage stage = (Stage) newScene.getWindow();
+                // Pencere tamamen yüklendikten sonra konum geri yükle
+                javafx.application.Platform.runLater(() -> {
+                    WindowStateManager.restoreWindowState(stage);
+                });
+            }
+        });
 
         // Initialize user status
         setUserStatus(UserStatus.ONLINE);
@@ -382,167 +381,62 @@ public class MainController {
         }
     }
 
-    // Window drag functionality for undecorated window
-    private void setupWindowDrag() {
-        final int RESIZE_BORDER = 5; // Size of resize border in pixels
-
-        mainPane.setOnMousePressed(event -> {
-            Stage stage = (Stage) mainPane.getScene().getWindow();
-            
-            // Check if we're near the edges for resizing
-            resizeDirection = getResizeDirection(event.getSceneX(), event.getSceneY(), 
-                                               mainPane.getWidth(), mainPane.getHeight(), RESIZE_BORDER);
-            
-            if (resizeDirection != ResizeDirection.NONE) {
-                isResizing = true;
-                resizeStartX = stage.getX();
-                resizeStartY = stage.getY();
-                resizeStartWidth = stage.getWidth();
-                resizeStartHeight = stage.getHeight();
-            } else {
-                isResizing = false;
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
-        });
-        
-        mainPane.setOnMouseDragged(event -> {
-            Stage stage = (Stage) mainPane.getScene().getWindow();
-            
-            if (isResizing) {
-                handleResize(stage, event.getScreenX(), event.getScreenY());
-            } else {
-                // Normal window dragging
-                stage.setX(event.getScreenX() - xOffset);
-                stage.setY(event.getScreenY() - yOffset);
-            }
-        });
-        
-        mainPane.setOnMouseMoved(event -> {
-            // Update cursor based on position
-            Cursor cursor = getCursorForPosition(event.getSceneX(), event.getSceneY(), 
-                                               mainPane.getWidth(), mainPane.getHeight(), RESIZE_BORDER);
-            mainPane.setCursor(cursor);
-        });
-        
-        mainPane.setOnMouseReleased(event -> {
-            isResizing = false;
-            resizeDirection = ResizeDirection.NONE;
-        });
-    }
-
-    private ResizeDirection getResizeDirection(double x, double y, double width, double height, int border) {
-        boolean isNorth = y <= border;
-        boolean isSouth = y >= height - border;
-        boolean isEast = x >= width - border;
-        boolean isWest = x <= border;
-        
-        if (isNorth && isWest) return ResizeDirection.NW;
-        if (isNorth && isEast) return ResizeDirection.NE;
-        if (isSouth && isWest) return ResizeDirection.SW;
-        if (isSouth && isEast) return ResizeDirection.SE;
-        if (isNorth) return ResizeDirection.N;
-        if (isSouth) return ResizeDirection.S;
-        if (isEast) return ResizeDirection.E;
-        if (isWest) return ResizeDirection.W;
-        
-        return ResizeDirection.NONE;
+    /**
+     * Ana pencereye geri dönüş için kullanılır (meeting view'lardan)
+     */
+    public void returnToMainView() {
+        // Sidebar'ı tekrar göster
+        showSidebarFromFullScreen();
+        handleDashboard(); // Dashboard'a geri dön
     }
     
-    private Cursor getCursorForPosition(double x, double y, double width, double height, int border) {
-        ResizeDirection direction = getResizeDirection(x, y, width, height, border);
+    /**
+     * Sidebar'ı gizleyerek full screen mod aktif eder
+     */
+    public void hideSidebarForFullScreen() {
+        // Tüm sol sidebar'ı gizle (navigation + profil + bildirimler dahil)
+        if (mainPane != null && mainPane.getLeft() != null) {
+            mainPane.getLeft().setVisible(false);
+            mainPane.getLeft().setManaged(false);
+        }
         
-        switch (direction) {
-            case N:
-            case S:
-                return Cursor.N_RESIZE;
-            case E:
-            case W:
-                return Cursor.E_RESIZE;
-            case NE:
-            case SW:
-                return Cursor.NE_RESIZE;
-            case NW:
-            case SE:
-                return Cursor.NW_RESIZE;
-            default:
-                return Cursor.DEFAULT;
+        // Content area'yı sol kenardan başlat (sidebar'ın bulunduğu alan dahil)
+        if (contentArea != null) {
+            // BorderPane'daki content area'nın sol margin'ını 0 yap
+            javafx.scene.layout.BorderPane.setMargin(contentArea, new javafx.geometry.Insets(0));
+            
+            // Content area'ı parent BorderPane'in center kısmına tam yerleştir
+            if (contentArea.getParent() instanceof BorderPane) {
+                BorderPane parentPane = (BorderPane) contentArea.getParent().getParent();
+                if (parentPane != null) {
+                    javafx.scene.layout.BorderPane.setMargin(parentPane, new javafx.geometry.Insets(0));
+                }
+            }
         }
     }
     
-    private void handleResize(Stage stage, double mouseX, double mouseY) {
-        double deltaX = mouseX - (resizeStartX + resizeStartWidth);
-        double deltaY = mouseY - (resizeStartY + resizeStartHeight);
-        
-        double newX = resizeStartX;
-        double newY = resizeStartY;
-        double newWidth = resizeStartWidth;
-        double newHeight = resizeStartHeight;
-        
-        // Minimum window size
-        final double MIN_WIDTH = 800;
-        final double MIN_HEIGHT = 600;
-        
-        switch (resizeDirection) {
-            case N:
-                newY = mouseY;
-                newHeight = resizeStartHeight + (resizeStartY - mouseY);
-                break;
-            case S:
-                newHeight = resizeStartHeight + deltaY;
-                break;
-            case E:
-                newWidth = resizeStartWidth + deltaX;
-                break;
-            case W:
-                newX = mouseX;
-                newWidth = resizeStartWidth + (resizeStartX - mouseX);
-                break;
-            case NE:
-                newY = mouseY;
-                newHeight = resizeStartHeight + (resizeStartY - mouseY);
-                newWidth = resizeStartWidth + deltaX;
-                break;
-            case NW:
-                newX = mouseX;
-                newY = mouseY;
-                newWidth = resizeStartWidth + (resizeStartX - mouseX);
-                newHeight = resizeStartHeight + (resizeStartY - mouseY);
-                break;
-            case SE:
-                newWidth = resizeStartWidth + deltaX;
-                newHeight = resizeStartHeight + deltaY;
-                break;
-            case SW:
-                newX = mouseX;
-                newWidth = resizeStartWidth + (resizeStartX - mouseX);
-                newHeight = resizeStartHeight + deltaY;
-                break;
-            case NONE:
-            default:
-                return; // No resizing needed
+    /**
+     * Sidebar'ı tekrar göstererek normal moda döner
+     */
+    public void showSidebarFromFullScreen() {
+        // Tüm sol sidebar'ı tekrar göster
+        if (mainPane != null && mainPane.getLeft() != null) {
+            mainPane.getLeft().setVisible(true);
+            mainPane.getLeft().setManaged(true);
         }
         
-        // Enforce minimum size constraints
-        if (newWidth < MIN_WIDTH) {
-            if (resizeDirection == ResizeDirection.W || resizeDirection == ResizeDirection.NW || resizeDirection == ResizeDirection.SW) {
-                newX = newX - (MIN_WIDTH - newWidth);
+        // Content area'yı normal konumuna döndür
+        if (contentArea != null) {
+            // Normal margin değerlerini geri yükle
+            javafx.scene.layout.BorderPane.setMargin(contentArea, new javafx.geometry.Insets(0));
+            
+            if (contentArea.getParent() instanceof BorderPane) {
+                BorderPane parentPane = (BorderPane) contentArea.getParent().getParent();
+                if (parentPane != null) {
+                    javafx.scene.layout.BorderPane.setMargin(parentPane, new javafx.geometry.Insets(0));
+                }
             }
-            newWidth = MIN_WIDTH;
         }
-        
-        if (newHeight < MIN_HEIGHT) {
-            if (resizeDirection == ResizeDirection.N || resizeDirection == ResizeDirection.NE || resizeDirection == ResizeDirection.NW) {
-                newY = newY - (MIN_HEIGHT - newHeight);
-            }
-            newHeight = MIN_HEIGHT;
-        }
-        
-        // Apply the new size and position
-        stage.setX(newX);
-        stage.setY(newY);
-        stage.setWidth(newWidth);
-        stage.setHeight(newHeight);
     }
 
     // Window control methods
@@ -626,10 +520,12 @@ public class MainController {
     // private void handleSettings() { ... } <-- METOT KALDIRILDI
 
     public void loadSecureRoomView() {
+        clearActiveButton(); // Aktif butonu temizle
         loadFullScreenView("SecureRoomView.fxml", true);
     }
 
     public void loadJoinMeetView() {
+        clearActiveButton(); // Aktif butonu temizle
         loadFullScreenView("JoinMeetView.fxml", false);
     }
 
@@ -656,17 +552,21 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/" + fxmlFile));
             Parent root = loader.load();
 
-            if (mainPane != null && mainPane.getScene() != null) {
-                Scene scene = mainPane.getScene();
-                if (isSecureRoom) {
-                    SecureRoomController controller = loader.getController();
-                    controller.setReturnScene(scene);
-                } else {
-                    JoinMeetController controller = loader.getController();
-                    controller.setReturnScene(scene);
-                }
-                scene.setRoot(root);
+            // İçerik değiştirme yaklaşımını kullan (scene değiştirme yerine)
+            if (isSecureRoom) {
+                SecureRoomController controller = loader.getController();
+                controller.setMainController(this); // Ana controller referansını ver
+            } else {
+                JoinMeetController controller = loader.getController();
+                controller.setMainController(this); // Ana controller referansını ver
             }
+            
+            // Sidebar'ı gizle ve content area'yı tam genişliğe çıkar
+            hideSidebarForFullScreen();
+            
+            // Content area'ya yeni görünümü yükle
+            contentArea.getChildren().setAll(root);
+            
         } catch (IOException e) {
             e.printStackTrace();
             showErrorInContentArea(fxmlFile + " yüklenemedi.");

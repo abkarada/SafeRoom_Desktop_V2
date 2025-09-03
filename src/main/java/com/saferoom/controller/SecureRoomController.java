@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import com.saferoom.MainApp;
 import com.saferoom.model.Meeting;
 import com.saferoom.model.UserRole;
+import com.saferoom.utils.WindowStateManager;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,8 +41,19 @@ public class SecureRoomController {
     @FXML private JFXCheckBox noLogsCheck;
     @FXML private TextField roomIdField;
 
+    // Window state manager for dragging functionality
+    private WindowStateManager windowStateManager = new WindowStateManager();
+    private MainController mainController;
+
     private Timeline micAnimation;
     private Scene returnScene;
+
+    /**
+     * Ana controller referansını ayarlar (geri dönüş için)
+     */
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void setReturnScene(Scene scene) {
         this.returnScene = scene;
@@ -49,6 +61,9 @@ public class SecureRoomController {
 
     @FXML
     public void initialize() {
+        // Root pane'i bulup sürükleme işlevini etkinleştir
+        // Bu view'da herhangi bir pane referansı olmadığı için, scene yüklendikten sonra eklenecek
+        
         audioInputBox.getItems().addAll("Default - MacBook Pro Microphone", "External USB Mic");
         audioOutputBox.getItems().addAll("Default - MacBook Pro Speakers", "Bluetooth Headphones");
         cameraSourceBox.getItems().addAll("FaceTime HD Camera", "External Webcam");
@@ -61,17 +76,26 @@ public class SecureRoomController {
         initiateButton.setOnAction(event -> handleInitiate());
 
         startMicTestAnimation();
+        
+        // Scene yüklendiğinde root pane'i bul ve sürükleme ekle
+        backButton.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null && newScene.getRoot() instanceof javafx.scene.layout.Pane) {
+                windowStateManager.setupBasicWindowDrag((javafx.scene.layout.Pane) newScene.getRoot());
+            }
+        });
     }
 
     private void handleInitiate() {
         if (micAnimation != null) micAnimation.stop();
 
-        if (returnScene != null) {
+        // Ana controller üzerinden meeting panel'i yükle (content değiştirme)
+        if (mainController != null) {
             try {
-                FXMLLoader meetingLoader = new FXMLLoader(MainApp.class.getResource("view/MeetingPanelView.fxml"));
+                FXMLLoader meetingLoader = new FXMLLoader(MainApp.class.getResource("/com/saferoom/view/MeetingPanelView.fxml"));
                 Parent meetingRoot = meetingLoader.load();
 
                 MeetingPanelController meetingController = meetingLoader.getController();
+                meetingController.setMainController(mainController);
 
                 // =========================================================================
                 // DEGISIKLIK BURADA: Oda ID'si bos ise rastgele bir ID olusturuyoruz.
@@ -88,7 +112,8 @@ public class SecureRoomController {
 
                 meetingController.initData(secureMeeting, UserRole.ADMIN);
 
-                returnScene.setRoot(meetingRoot);
+                // Ana controller'ın content area'sına meeting panel'i yükle
+                mainController.contentArea.getChildren().setAll(meetingRoot);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -111,13 +136,9 @@ public class SecureRoomController {
     private void handleBack() {
         if (micAnimation != null) micAnimation.stop();
 
-        if (returnScene != null) {
-            try {
-                Parent mainRoot = FXMLLoader.load(Objects.requireNonNull(MainApp.class.getResource("view/MainView.fxml")));
-                returnScene.setRoot(mainRoot);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // Ana controller üzerinden ana görünüme geri dön
+        if (mainController != null) {
+            mainController.returnToMainView();
         }
     }
 }
